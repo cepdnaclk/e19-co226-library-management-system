@@ -25,10 +25,14 @@
                     </ul>
                 </div>
                 <div class = "search">
-                    <input class = "srch" type="search" name= "Search" placeholder="Search">
-                    <a href = "#">
+                    <form action="search.php" method="POST">
+                        <input class = "srch" type="search" name= "Search" placeholder="Search">
+                        <!--a href = "#">
+                            <button class="btn">Search</button>
+                        </a-->
                         <button class="btn">Search</button>
-                    </a>
+                    </form>
+                        
                 </div>
             
             </div>
@@ -57,9 +61,12 @@
 
             <div class="form">
                 <h2>Login Here</h2>
-                <input type = "number" name = "NIC" placeholder="NIC">
-                <input type = "password" name = "PASSWORD" placeholder="Password">
-                <button class = "btnn"><a href = "#">Login</a></button>
+                <form action = "login.php" method = "POST>
+                    <input type = "number" name = "NIC" placeholder="NIC">
+                    <input type = "password" name = "PASSWORD" placeholder="Password">
+                    <!--button class = "btnn"><a href = "#">Login</a></button-->
+                    <button class = "btnn" type="submit">Login</button>
+                </form>
                 <!--p class = "link">Don't have an account<br>
                 <a href = "#">Sign up</a>here</a></p></p>-->
             </div>
