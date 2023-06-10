@@ -1,0 +1,43 @@
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to top,rgba(0,0,0,0.5)100%,rgba(0,0,0,0.5)100%),url(about_us.jpg);
+    background-position: center;
+    background-size: cover;
+}
+
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.content {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333333;
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.par {
+    color: #666666;
+    line-height: 1.5;
+}
+  
+  
