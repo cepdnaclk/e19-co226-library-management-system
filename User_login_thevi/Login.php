@@ -17,21 +17,26 @@
         if (mysqli_num_rows($result) == 1) {
             $sql1 = "SELECT LastName FROM Person WHERE NationalID='$NIC' LIMIT 1";
             $sql2 = "SELECT National_ID FROM Member WHERE National_ID='$NIC' LIMIT 1";
+            $sql_memid = "SELECT Member_ID FROM Member WHERE National_ID='$NIC' LIMIT 1";
             $sql3="SELECT National_ID FROM Librarian WHERE National_ID='$NIC' LIMIT 1";
             $result1 = mysqli_query($conn, $sql1);
             $result2 = mysqli_query($conn, $sql2);
+            $result_mem = mysqli_query($conn, $sql_memid);
             $result3 = mysqli_query($conn, $sql3);
             
             if (mysqli_num_rows($result1) == 1 && mysqli_num_rows($result2) == 1) {
-                // Retrieve the user's last name from the database
+                // Retrieve the Member last name from the database
                 $row = mysqli_fetch_assoc($result1);
                 $name = $row['LastName'];
+                $row1 = mysqli_fetch_assoc($result_mem);
+                $memID = $row1['Member_ID'];
 
                 // Redirect the user to the welcome page and pass the name as a parameter in the URL
-                header("Location: Member.php?name=" . urlencode($name));
+                header("Location: Member.php?name=" . urlencode($name) . "&memID=" . urlencode($memID));
+
                 exit();
             }else if(mysqli_num_rows($result1) == 1 && mysqli_num_rows($result3) == 1){
-                // Retrieve the user's last name from the database
+                // Retrieve the Librarian last name from the database
                 $row = mysqli_fetch_assoc($result1);
                 $name = $row['LastName'];
 
