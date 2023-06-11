@@ -1,0 +1,88 @@
+/* welcomestyle.css */
+body {
+    background-color: #f2f2f2;
+}
+
+.welcome-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(welcome.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
+}
+h1 {
+    font-size: 50px;
+    font-weight: 600;
+    -webkit-background-clip: text;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    letter-spacing: 2px;
+    display: inline-block;
+    background: linear-gradient(to right, #e7e1af, #70cae0);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+
+ 
+  p  {
+        width: 900px;
+        padding-left: 20px;
+        padding-bottom:25px;
+        font-family: 'Arial';
+        color: #faf7f4;
+        letter-spacing: 1.2px;
+        line-height: 30px;
+    
+      }
+
+
+
+.logout-btn {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.logout-btn:hover {
+    background-color: #555;
+}
+
+.logout-btn a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.Lib-page {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url(librarian.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
+}
+
+.para-li {
+    font-size: 25px;
+    width: 900px;
+    padding-left: 20px;
+    padding-bottom: 25px;
+    font-family: 'Arial';
+    color: #100101;
+    letter-spacing: 1.2px;
+    line-height: 30px;
+    background-color: rgba(128, 128, 128, 0.5);
+  }
