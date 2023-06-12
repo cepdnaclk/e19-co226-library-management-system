@@ -830,6 +830,10 @@ MariaDB [LibraryManagementSystem]> SELECT * FROM BORROWS;
 +-----------+---------------+-------------+-------------+
 20 rows in set (0.001 sec)
 
+MariaDB [LibraryManagementSystem]> ALTER TABLE Users
+    -> ADD CONSTRAINT unique_NationalID_Password UNIQUE (NationalID,Password);
+Query OK, 0 rows affected (0.721 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
 
 
