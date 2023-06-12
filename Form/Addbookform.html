@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang = "en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title> Add Book</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name = "viewport" content ="width=device-width,initial-scale=1.0">
+    </head>
+<body>
+    <h1>Enter the book details here</h1>
+    <form action="Addbookconnect.php" method="POST">
+        <p>ISBN: </p><input type = "text" name="isbn">
+        <p>Book ID: </p><input type = "text" name="book_id">
+        <p>Publisher ID: </p><input type = "text"name="publisher_id">
+        <p>Available quantity: </p><input type = "text"name="now_avail_qty">
+        <p>Title: </p><input type = "text"name="title" >
+        <p>Received Date: </p><input type = "text"name="revceived_date">
+        <p>Total quantity: </p><input type = "text"name="total_qty">
+        <br><br>
+        <input type ="Reset">
+        <input type="Submit">
+    </form>
+</body>
+</html>
