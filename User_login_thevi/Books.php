@@ -36,20 +36,18 @@ mysqli_close($conn);
                     <th>ISBN</th>
                     <th>Book_ID</th>
                     <th>Publisher_ID</th>
-                    <th>Available_qty</th>
                     <th>Title</th>
-                    <th>Received_date</th>
-                    <th>Total_qty</th>
+                    
+                    
                 </tr>
                 <?php foreach($BookArray as $book): ?>
                 <tr>
                     <td><?php echo $book['ISBN']; ?></td>
                     <td><?php echo $book['Book_ID']; ?></td>
                     <td><?php echo $book['Publisher_ID']; ?> </td>
-                    <td><?php echo $book['Available_qty'] ; ?> </td>
                     <td><?php echo $book['Title'] ; ?> </td>
-                    <td><?php echo $book['Received_date']; ?> </td>
-                    <td><?php echo $book['Total_qty']; ?> </td>
+                    
+                    
                 </tr>
                 <?php endforeach; ?>
 
