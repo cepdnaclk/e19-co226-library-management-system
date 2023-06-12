@@ -201,25 +201,27 @@ MariaDB [LibraryManagementSystem]> DESC HNADLES;
 2 rows in set (0.012 sec)
 
 MariaDB [LibraryManagementSystem]> CREATE Table BORROWS(
-    -> Member_ID INT NOT NULL,
-    -> ISBN VARCHAR(50) NOT NULL,
-    -> Borrow_Date DATE,
-    -> Return_Date DATE,
-    -> PRIMARY KEY(Member_ID,ISBN),
-    -> FOREIGN KEY(Member_ID)REFERENCES Member(Member_ID),
-    -> FOREIGN KEy(ISBN) REFERENCES Book(ISBN));
-Query OK, 0 rows affected (0.333 sec)
+    ->      Member_ID INT NOT NULL,
+    ->      Title VARCHAR(50) NOT NULL,
+    ->      Borrow_Date DATE,
+    ->      Return_Date DATE,
+    ->      PRIMARY KEY(Member_ID,Title),
+    ->      FOREIGN KEY(Member_ID)REFERENCES Member(Member_ID));
+Query OK, 0 rows affected (0.320 sec)
+MariaDB [LibraryManagementSystem]> ALTER TABLE Borrows
+    ->     ADD CONSTRAINT unique_Member_ID_Title_Borrow_Date UNIQUE (Member_ID,Title,Borrow_Date);
+Query OK, 0 rows affected (0.392 sec)
 
-MariaDB [LibraryManagementSystem]> DESC BORROWS;
+MariaDB [LibraryManagementSystem]> DESC Borrows;
 +-------------+-------------+------+-----+---------+-------+
 | Field       | Type        | Null | Key | Default | Extra |
 +-------------+-------------+------+-----+---------+-------+
 | Member_ID   | int(11)     | NO   | PRI | NULL    |       |
-| ISBN        | varchar(50) | NO   | PRI | NULL    |       |
+| Title       | varchar(50) | NO   | PRI | NULL    |       |
 | Borrow_Date | date        | YES  |     | NULL    |       |
 | Return_Date | date        | YES  |     | NULL    |       |
 +-------------+-------------+------+-----+---------+-------+
-4 rows in set (0.010 sec)
+4 rows in set (0.046 sec)
 
 MariaDB [LibraryManagementSystem]> CREATE Table WRITTEN_BY(
     -> ISBN VARCHAR(50)NOT NULL,
@@ -778,66 +780,215 @@ MariaDB [LibraryManagementSystem]> SELECT * FROM HNADLES;
 +---------------+--------------+
 30 rows in set (0.000 sec)
 
-MariaDB [LibraryManagementSystem]> INSERT INTO BORROWS(ISBN,Member_ID,Borrow_Date,Return_Date)
-    -> VALUES
-    -> ('1234567890', 1, '2023-06-01', '2023-06-08'),
-    -> ('3456789012', 2, '2023-06-02', '2023-06-09'),
-    -> ('9780061120060', 3, '2023-06-03', '2023-06-10'),
-    -> ('9780061120084', 4, '2023-06-04', '2023-06-11'),
-    -> ('9780062242667', 5, '2023-06-05', '2023-06-12'),
-    -> ('9780062273418', 6, '2023-06-06', '2023-06-13'),
-    -> ('9780062315007', 7, '2023-06-07', '2023-06-14'),
-    -> ('9780134494225', 8, '2023-06-08', '2023-06-15'),
-    -> ('9780140186419', 9, '2023-06-09', '2023-06-16'),
-    -> ('9780140449334', 10, '2023-06-10', '2023-06-17'),
-    -> ('9780141182551', 1, '2023-06-20', '2023-06-27'),
-    -> ('9780143039433', 2, '2023-06-21', '2023-06-28'),
-    -> ('9780201633612', 3, '2023-06-22', '2023-06-29'),
-    -> ('9780307277673', 4, '2023-06-23', '2023-06-30'),
-    -> ('9780307476078', 5, '2023-06-24', '2023-07-01'),
-    -> ('9780316015844', 6, '2023-06-25', '2023-07-02'),
-    -> ('9780316206363', 7, '2023-06-26', '2023-07-03'),
-    -> ('9780316769174', 8, '2023-06-27', '2023-07-04'),
-    -> ('9780374530631', 9, '2023-06-28', '2023-07-05'),
-    -> ('9780385504201', 10, '2023-06-29', '2023-07-06');
-Query OK, 20 rows affected (0.128 sec)
-Records: 20  Duplicates: 0  Warnings: 0
+MariaDB [LibraryManagementSystem]> INSERT INTO BORROWS(Title,Member_ID,Borrow_Date,Return_Date)
+    ->     VALUES
+    ->     ('Moby-Dick ', 1, '2023-06-01', '2023-06-08'),
+    ->     ('Gone with the Wind', 2, '2023-06-02', '2023-06-09'),
+    ->     (' Slaughterhouse-Five ', 3, '2023-06-03', '2023-06-10'),
+    ->     (' Start With Why: How Great Leaders Inspire Everyone to Take Action  ', 4, '2023-06-04', '2023-06-11'),
+    ->     ('Brave New World', 5, '2023-06-05', '2023-06-12'),
+    ->     (' Crime and Punishment', 6, '2023-06-06', '2023-06-13'),
+    ->     ('The Lord of the Rings ', 7, '2023-06-07', '2023-06-14'),
+    ->     ('The Brothers Karamazov', 8, '2023-06-08', '2023-06-15'),
+    ->     ('The Bell Jar', 9, '2023-06-09', '2023-06-16'),
+    ->     ('Dune', 10, '2023-06-10', '2023-06-17'),
+    ->     ('The Odyssey', 1, '2023-06-20', '2023-06-27'),
+    ->     (' The Brothers Karamazov ', 2, '2023-06-21', '2023-06-28'),
+    ->     ('The Picture of Dorian Gray', 3, '2023-06-22', '2023-06-29'),
+    ->     ('The Old Man and the Sea', 4, '2023-06-23', '2023-06-30'),
+    ->     ('The Da Vinci Code', 5, '2023-06-24', '2023-07-01');
 
-MariaDB [LibraryManagementSystem]> SELECT * FROM BORROWS;
-+-----------+---------------+-------------+-------------+
-| Member_ID | ISBN          | Borrow_Date | Return_Date |
-+-----------+---------------+-------------+-------------+
-|         1 | 1234567890    | 2023-06-01  | 2023-06-08  |
-|         1 | 9780141182551 | 2023-06-20  | 2023-06-27  |
-|         2 | 3456789012    | 2023-06-02  | 2023-06-09  |
-|         2 | 9780143039433 | 2023-06-21  | 2023-06-28  |
-|         3 | 9780061120060 | 2023-06-03  | 2023-06-10  |
-|         3 | 9780201633612 | 2023-06-22  | 2023-06-29  |
-|         4 | 9780061120084 | 2023-06-04  | 2023-06-11  |
-|         4 | 9780307277673 | 2023-06-23  | 2023-06-30  |
-|         5 | 9780062242667 | 2023-06-05  | 2023-06-12  |
-|         5 | 9780307476078 | 2023-06-24  | 2023-07-01  |
-|         6 | 9780062273418 | 2023-06-06  | 2023-06-13  |
-|         6 | 9780316015844 | 2023-06-25  | 2023-07-02  |
-|         7 | 9780062315007 | 2023-06-07  | 2023-06-14  |
-|         7 | 9780316206363 | 2023-06-26  | 2023-07-03  |
-|         8 | 9780134494225 | 2023-06-08  | 2023-06-15  |
-|         8 | 9780316769174 | 2023-06-27  | 2023-07-04  |
-|         9 | 9780140186419 | 2023-06-09  | 2023-06-16  |
-|         9 | 9780374530631 | 2023-06-28  | 2023-07-05  |
-|        10 | 9780140449334 | 2023-06-10  | 2023-06-17  |
-|        10 | 9780385504201 | 2023-06-29  | 2023-07-06  |
-+-----------+---------------+-------------+-------------+
-20 rows in set (0.001 sec)
+MariaDB [LibraryManagementSystem]> SELECT *  FROM Borrows;
++-----------+----------------------------------------------------+-------------+-------------+
+| Member_ID | Title                                              | Borrow_Date | Return_Date |
++-----------+----------------------------------------------------+-------------+-------------+
+|         1 | Moby-Dick                                          | 2023-06-01  | 2023-06-08  |
+|         1 | The Odyssey                                        | 2023-06-20  | 2023-06-27  |
+|         2 |  The Brothers Karamazov                            | 2023-06-21  | 2023-06-28  |
+|         2 | Gone with the Wind                                 | 2023-06-02  | 2023-06-09  |
+|         3 |  Slaughterhouse-Five                               | 2023-06-03  | 2023-06-10  |
+|         3 | The Picture of Dorian Gray                         | 2023-06-22  | 2023-06-29  |
+|         4 |  Start With Why: How Great Leaders Inspire Everyon | 2023-06-04  | 2023-06-11  |
+|         4 | The Old Man and the Sea                            | 2023-06-23  | 2023-06-30  |
+|         5 | Brave New World                                    | 2023-06-05  | 2023-06-12  |
+|         5 | The Da Vinci Code                                  | 2023-06-24  | 2023-07-01  |
+|         6 |  Crime and Punishment                              | 2023-06-06  | 2023-06-13  |
+|         7 | The Lord of the Rings                              | 2023-06-07  | 2023-06-14  |
+|         8 | The Brothers Karamazov                             | 2023-06-08  | 2023-06-15  |
+|         9 | The Bell Jar                                       | 2023-06-09  | 2023-06-16  |
+|        10 | Dune                                               | 2023-06-10  | 2023-06-17  |
++-----------+----------------------------------------------------+-------------+-------------+
+15 rows in set (0.000 sec)
 
 MariaDB [LibraryManagementSystem]> ALTER TABLE Users
     -> ADD CONSTRAINT unique_NationalID_Password UNIQUE (NationalID,Password);
 Query OK, 0 rows affected (0.721 sec)
 Records: 0  Duplicates: 0  Warnings: 0
 
+MariaDB [LibraryManagementSystem]> ALTER TABLE BOOK
+    ->      DROP COLUMN Available_qty,
+    ->      DROP COLUMN Total_qty;
+Query OK, 0 rows affected (0.398 sec)
+Records: 0  Duplicates: 0  Warnings: 0
 
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book;
++---------------+---------+--------------+--------------------------------------------------------------------------------------+---------------+
+| ISBN          | Book_ID | Publisher_ID | Title                                                                                | Received_date |
++---------------+---------+--------------+--------------------------------------------------------------------------------------+---------------+
+| 1234567890    |       7 |            7 | Harry Potter and the Sorcerer's Stone                                                | 2023-06-07    |
+| 3456789012    |      24 |            1 | The Alchemist                                                                        | 2023-06-01    |
+| 9780061120060 |     119 |            9 | Lord of the Flies                                                                    | 2023-06-19    |
+| 9780061120084 |     114 |            4 | 1984                                                                                 | 2023-06-14    |
+| 9780062242667 |      12 |            2 | The Power of Habit: Why We Do What We Do in Life and Business                        | 2023-06-12    |
+| 9780062273418 |      15 |            5 | Originals: How Non-Conformists Move the World                                        | 2023-06-15    |
+| 9780062315007 |     104 |            4 | The Odyssey                                                                          | 2023-06-04    |
+| 9780134494225 |       1 |            1 | The Pragmatic Programmer: From Journeyman to Master                                  | 2023-06-01    |
+| 9780140186419 |     120 |           10 | Moby-Dick                                                                            | 2023-06-20    |
+| 9780140449334 |     113 |            3 | Crime and Punishment                                                                 | 2023-06-13    |
+| 9780141182551 |     116 |            6 | Brave New World                                                                      | 2023-06-16    |
+| 9780143039433 |     110 |           10 | The Brothers Karamazov                                                               | 2023-06-10    |
+| 9780201633612 |       2 |            2 | The Design of Everyday Things                                                        | 2023-06-02    |
+| 9780307277673 |     109 |            9 | The Catcher in the Rye                                                               | 2023-06-09    |
+| 9780307476078 |     106 |            6 | A Game of Thrones                                                                    | 2023-06-06    |
+| 9780316015844 |     118 |            8 | The Hobbit                                                                           | 2023-06-18    |
+| 9780316206363 |      14 |            4 | Start With Why: How Great Leaders Inspire Everyone to Take Action                    | 2023-06-14    |
+| 9780316769174 |     111 |            1 | Gone with the Wind                                                                   | 2023-06-11    |
+| 9780374530631 |     101 |            1 | The Old Man and the Sea                                                              | 2023-06-01    |
+| 9780385504201 |     108 |            8 | The Da Vinci Code                                                                    | 2023-06-08    |
+| 9780671027032 |     115 |            5 | Dune                                                                                 | 2023-06-15    |
+| 9780679723165 |     105 |            5 | One Hundred Years of Solitude                                                        | 2023-06-05    |
+| 9780679734772 |     117 |            7 | The Picture of Dorian Gray                                                           | 2023-06-17    |
+| 9780679745683 |      11 |            1 | Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            | 2023-06-11    |
+| 9780679760801 |     107 |            7 | The Bell Jar                                                                         | 2023-06-07    |
+| 9780743273565 |     102 |            2 | The Lord of the Rings                                                                | 2023-06-02    |
+| 9780804138677 |      13 |            3 | Deep Work: Rules for Focused Success in a Distracted World                           | 2023-06-13    |
+| 9780812993546 |     103 |            3 | Slaughterhouse-Five                                                                  | 2023-06-03    |
+| 9781451626650 |     112 |            2 | The Adventures of Huckleberry Finn                                                   | 2023-06-12    |
+| 9781608965702 |      16 |            6 | The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers | 2023-06-16    |
++---------------+---------+--------------+--------------------------------------------------------------------------------------+---------------+
+30 rows in set (0.282 sec)
 
+MariaDB [LibraryManagementSystem]> CREATE TABLE BOOK_COUNT(
+    ->     Title VARCHAR(128),
+    ->     Now_available_qty INT UNSIGNED,
+    ->     Total_qty INT UNSIGNED NOT NULL,
+    ->     PRIMARY KEY (Title));
+Query OK, 0 rows affected (0.321 sec)
 
+MariaDB [LibraryManagementSystem]> DESC BOOK_COUNT;
++-------------------+------------------+------+-----+---------+-------+
+| Field             | Type             | Null | Key | Default | Extra |
++-------------------+------------------+------+-----+---------+-------+
+| Title             | varchar(128)     | NO   | PRI | NULL    |       |
+| Now_available_qty | int(10) unsigned | YES  |     | NULL    |       |
+| Total_qty         | int(10) unsigned | NO   |     | NULL    |       |
++-------------------+------------------+------+-----+---------+-------+
+3 rows in set (0.031 sec)
 
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK_COUNT (Title, Now_available_qty, Total_qty)
+    -> VALUES
+    -> ('Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', 5, 60),
+    -> ('The Power of Habit: Why We Do What We Do in Life and Business', 10, 65),
+    -> ('Deep Work: Rules for Focused Success in a Distracted World', 15, 70),
+    -> ('Start With Why: How Great Leaders Inspire Everyone to Take Action', 20, 75),
+    -> ('Originals: How Non-Conformists Move the World', 25, 80),
+    -> ('The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers',30, 85);
+Query OK, 6 rows affected (0.048 sec)
+Records: 6  Duplicates: 0  Warnings: 0
 
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK_COUNT (Title, Now_available_qty, Total_qty)VALUES  ('The Old Man and the Sea', 7, 30),  ('The Lord of the Rings', 3, 15),  ('Slaughterhouse-Five', 5, 20),  ('The Odyssey', 9, 40),  ('One Hundred Years of Solitude', 2, 10),  ('A Game of Thrones', 8, 35),  ('The Bell Jar', 4, 18),  ('The Da Vinci Code', 1, 5),  ('The Catcher in the Rye', 6, 25),  ('The Brothers Karamazov', 3, 12),  ('Gone with the Wind', 4, 18),  ('The Adventures of Huckleberry Finn', 7, 32),  ('Crime and Punishment', 2, 10),  ('1984', 5, 20),  ('Dune', 1, 5),  ('Brave New World', 5, 22),  ('The Picture of Dorian Gray', 7, 36),  ('The Hobbit', 6, 28),  ('Lord of the Flies', 9, 42),  ('Moby-Dick', 7, 35);
+Query OK, 20 rows affected (0.120 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK_COUNT (Title, Now_available_qty, Total_qty)VALUES  ('Harry Potter and the Sorcerer''s Stone', 70, 700),  ('The Alchemist', 10, 100);
+Query OK, 2 rows affected (0.054 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book_Count;
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| Title                                                                                | Now_available_qty | Total_qty |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| 1984                                                                                 |                 5 |        20 |
+| A Game of Thrones                                                                    |                 8 |        35 |
+| Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            |                 5 |        60 |
+| Brave New World                                                                      |                 5 |        22 |
+| Crime and Punishment                                                                 |                 2 |        10 |
+| Deep Work: Rules for Focused Success in a Distracted World                           |                15 |        70 |
+| Dune                                                                                 |                 1 |         5 |
+| Gone with the Wind                                                                   |                 4 |        18 |
+| Harry Potter and the Sorcerer's Stone                                                |                70 |       700 |
+| Lord of the Flies                                                                    |                 9 |        42 |
+| Moby-Dick                                                                            |                 7 |        35 |
+| One Hundred Years of Solitude                                                        |                 2 |        10 |
+| Originals: How Non-Conformists Move the World                                        |                25 |        80 |
+| Slaughterhouse-Five                                                                  |                 5 |        20 |
+| Start With Why: How Great Leaders Inspire Everyone to Take Action                    |                20 |        75 |
+| The Adventures of Huckleberry Finn                                                   |                 7 |        32 |
+| The Alchemist                                                                        |                10 |       100 |
+| The Bell Jar                                                                         |                 4 |        18 |
+| The Brothers Karamazov                                                               |                 3 |        12 |
+| The Catcher in the Rye                                                               |                 6 |        25 |
+| The Da Vinci Code                                                                    |                 1 |         5 |
+| The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers |                30 |        85 |
+| The Hobbit                                                                           |                 6 |        28 |
+| The Lord of the Rings                                                                |                 3 |        15 |
+| The Odyssey                                                                          |                 9 |        40 |
+| The Old Man and the Sea                                                              |                 7 |        30 |
+| The Picture of Dorian Gray                                                           |                 7 |        36 |
+| The Power of Habit: Why We Do What We Do in Life and Business                        |                10 |        65 |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+28 rows in set (0.000 sec)
+
+MariaDB [LibraryManagementSystem]> UPDATE BOOK_COUNT
+    ->     SET Total_qty = 60
+    ->     WHERE TITLE = 'Harry Potter and the Sorcerer''s Stone';
+Query OK, 1 row affected (0.065 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> UPDATE BOOK_COUNT
+    ->     SET Now_available_qty = 10
+    ->     WHERE TITLE = 'Harry Potter and the Sorcerer''s Stone';
+Query OK, 1 row affected (0.053 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> UPDATE BOOK_COUNT
+    ->     SET Total_qty = 15
+    ->     WHERE TITLE = 'The Alchemist';
+Query OK, 1 row affected (0.066 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book_Count;
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| Title                                                                                | Now_available_qty | Total_qty |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| 1984                                                                                 |                 5 |        20 |
+| A Game of Thrones                                                                    |                 8 |        35 |
+| Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            |                 5 |        60 |
+| Brave New World                                                                      |                 5 |        22 |
+| Crime and Punishment                                                                 |                 2 |        10 |
+| Deep Work: Rules for Focused Success in a Distracted World                           |                15 |        70 |
+| Dune                                                                                 |                 1 |         5 |
+| Gone with the Wind                                                                   |                 4 |        18 |
+| Harry Potter and the Sorcerer's Stone                                                |                10 |        60 |
+| Lord of the Flies                                                                    |                 9 |        42 |
+| Moby-Dick                                                                            |                 7 |        35 |
+| One Hundred Years of Solitude                                                        |                 2 |        10 |
+| Originals: How Non-Conformists Move the World                                        |                25 |        80 |
+| Slaughterhouse-Five                                                                  |                 5 |        20 |
+| Start With Why: How Great Leaders Inspire Everyone to Take Action                    |                20 |        75 |
+| The Adventures of Huckleberry Finn                                                   |                 7 |        32 |
+| The Alchemist                                                                        |                10 |        15 |
+| The Bell Jar                                                                         |                 4 |        18 |
+| The Brothers Karamazov                                                               |                 3 |        12 |
+| The Catcher in the Rye                                                               |                 6 |        25 |
+| The Da Vinci Code                                                                    |                 1 |         5 |
+| The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers |                30 |        85 |
+| The Hobbit                                                                           |                 6 |        28 |
+| The Lord of the Rings                                                                |                 3 |        15 |
+| The Odyssey                                                                          |                 9 |        40 |
+| The Old Man and the Sea                                                              |                 7 |        30 |
+| The Picture of Dorian Gray                                                           |                 7 |        36 |
+| The Power of Habit: Why We Do What We Do in Life and Business                        |                10 |        65 |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+28 rows in set (0.000 sec)
 
