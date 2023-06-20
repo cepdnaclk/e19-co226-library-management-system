@@ -19,7 +19,7 @@
             $memID = $_GET['memID'];
             echo "<h1>Hi, " . htmlspecialchars($name) . "!</h1>";
 
-            $query_bor = "SELECT BORROWS.ISBN, BORROWS.Borrow_Date, BORROWS.Return_Date, BOOK.Title FROM BORROWS JOIN BOOK ON BORROWS.ISBN = BOOK.ISBN WHERE Member_ID = $memID";
+            $query_bor = "SELECT BORROWS.ISBN, BORROWS.Borrow_Date,BORROWS.Due_date, BORROWS.Return_Date, BOOK.Title FROM BORROWS JOIN BOOK ON BORROWS.ISBN = BOOK.ISBN WHERE Member_ID = $memID";
             $result_bor = mysqli_query($conn, $query_bor);
 
             
@@ -65,6 +65,7 @@
                     <th>Title</th>
                     <th>ISBN</th>
                     <th>Borrow_Date</th>
+                    <th>Due_Date</th>
                     <th>Return_Date</th>
                     
                 </tr>
@@ -73,6 +74,7 @@
                     <td><?php echo $mem['Title']; ?></td>
                     <td><?php echo $mem['ISBN']; ?></td>
                     <td><?php echo $mem['Borrow_Date']; ?></td>
+                    <td><?php echo $mem['Due_date']; ?></td>
                     <td><?php echo $mem['Return_Date']; ?> </td>
                     
                 </tr>
