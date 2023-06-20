@@ -10,7 +10,7 @@ if(!$conn){
 }
 $use_db = "USE LibraryManagementSystem";
 if(!mysqli_query($conn,$use_db)){
-    echo "Error using database: " .mysqli_error($conn);
+    //echo "Error using database: " .mysqli_error($conn);
 }
 
 $query1 = "SELECT Registration_No FROM Publisher ORDER BY Registration_No DESC LIMIT 1";
@@ -43,10 +43,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     ('$formattedReg', '$formattedemail','$address', '$phone_number', '$name')";
 
     if (mysqli_query($conn, $insertQuery)) {
-        echo "Data inserted successfully.<br>";
+        //echo "Data inserted successfully.<br>";
     } else {
-        echo "Error inserting data: " . mysqli_error($conn);
+        //echo "Error inserting data: " . mysqli_error($conn);
     }
 }
 mysqli_close($conn);
 ?>
+
+<!DOCTYPE html>
+<html lang = "en" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title> Add Publisher</title>
+        <link rel="stylesheet" href="style.css">
+        <meta name = "viewport" content ="width=device-width,initial-scale=1.0">
+    </head>
+<body>
+    <h1>Enter the details here</h1>
+    <form action="Addpublisherconnect.php" method="POST">
+        <p>Name: </p><input type = "text"name="name">
+        <p>Address: </p><input type = "text" name="address">
+        <p>Phone Number: </p><input type = "text" name="phone_number">
+        <br><br>
+        <input type ="Reset">
+        <input type="Submit">
+    </form>
+    <br/><br/>
+    <button  onclick="goBack()">Back</button><br/><br/>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>

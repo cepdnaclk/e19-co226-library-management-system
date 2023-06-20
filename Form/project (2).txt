@@ -1,0 +1,994 @@
+MariaDB [(none)]> CREATE DATABASE LibraryManagementSystem;
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [(none)]> USE LibraryManagementSystem;
+Database changed
+MariaDB [LibraryManagementSystem]> SHOW Databases;
++-------------------------+
+| Database                |
++-------------------------+
+| e190690123lab05         |
+| e190690lab05            |
+| e19069_lab02            |
+| e19069_lab05            |
+| e19069lab02             |
+| e19069lab05             |
+| e19069lab06             |
+| e19069lab07             |
+| e19069lab08             |
+| information_schema      |
+| librarymanagementsystem |
+| mysql                   |
+| performance_schema      |
+| phpmyadmin              |
+| student registration    |
+| test                    |
+| world                   |
++-------------------------+
+17 rows in set (0.099 sec)
+
+MariaDB [LibraryManagementSystem]> Create Table PERSON(
+    -> NationalID VARCHAR(12) NOT NULL,
+    -> FIrstName VARCHAR(50),
+    -> LastName VARCHAR(50),
+    -> Address VARCHAR(128),
+    -> ContactNumber INT(10),
+    -> Email VARCHAR(254),
+    -> PRIMARY KEY(NationalID));
+Query OK, 0 rows affected (0.345 sec)
+
+MariaDB [LibraryManagementSystem]> DESC PERSON;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| NationalID    | varchar(12)  | NO   | PRI | NULL    |       |
+| FIrstName     | varchar(50)  | YES  |     | NULL    |       |
+| LastName      | varchar(50)  | YES  |     | NULL    |       |
+| Address       | varchar(128) | YES  |     | NULL    |       |
+| ContactNumber | int(10)      | YES  |     | NULL    |       |
+| Email         | varchar(254) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+6 rows in set (0.008 sec)
+
+MariaDB [LibraryManagementSystem]> Create Table PUBLISHER(
+    -> Publisher_ID INT NOT NULL AUTO_INCREMENT,
+    -> Registration_No VARCHAR(20),
+    -> Email VARCHAR(254),
+    -> Address VARCHAR(128),
+    -> Phone_number INT(10),
+    -> Name VARCHAR(50),
+    -> PRIMARY KEY(Publisher_ID));
+Query OK, 0 rows affected (0.218 sec)
+
+MariaDB [LibraryManagementSystem]> DESC Publisher;
++-----------------+--------------+------+-----+---------+----------------+
+| Field           | Type         | Null | Key | Default | Extra          |
++-----------------+--------------+------+-----+---------+----------------+
+| Publisher_ID    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| Registration_No | varchar(20)  | YES  |     | NULL    |                |
+| Email           | varchar(254) | YES  |     | NULL    |                |
+| Address         | varchar(128) | YES  |     | NULL    |                |
+| Phone_number    | int(10)      | YES  |     | NULL    |                |
+| Name            | varchar(50)  | YES  |     | NULL    |                |
++-----------------+--------------+------+-----+---------+----------------+
+6 rows in set (0.009 sec)
+
+MariaDB [LibraryManagementSystem]> Create Table BOOK(
+    -> ISBN VARCHAR(20) NOT NULL,
+    -> Book_ID INT NOT NULL ,
+    -> Publisher_ID INT,
+    -> Available_qty INT NOT NULL,
+    -> Title VARCHAR(128),
+    -> Received_date DATE,
+    -> Total_qty INT NOT NULL,
+    -> PRIMARY KEY (ISBN),
+    -> FOREIGN KEY(Publisher_ID) REFERENCES Publisher(Publisher_ID));
+Query OK, 0 rows affected (0.855 sec)
+
+MariaDB [LibraryManagementSystem]> DESC BOOK;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| ISBN          | varchar(20)  | NO   | PRI | NULL    |       |
+| Book_ID       | int(11)      | NO   |     | NULL    |       |
+| Publisher_ID  | int(11)      | YES  | MUL | NULL    |       |
+| Available_qty | int(11)      | NO   |     | NULL    |       |
+| Title         | varchar(128) | YES  |     | NULL    |       |
+| Received_date | date         | YES  |     | NULL    |       |
+| Total_qty     | int(11)      | NO   |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+7 rows in set (0.012 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table AUTHOR(
+    -> Author_ID VARCHAR(20) NOT NULL,
+    -> Name VARCHAR(50),
+    -> Email VARCHAR(254)
+    -> ,
+    -> Nationality VARCHAR(50),
+    -> PRIMARY KEY(Author_ID));
+Query OK, 0 rows affected (0.437 sec)
+
+MariaDB [LibraryManagementSystem]> DESC AUTHOR;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| Author_ID   | varchar(20)  | NO   | PRI | NULL    |       |
+| Name        | varchar(50)  | YES  |     | NULL    |       |
+| Email       | varchar(254) | YES  |     | NULL    |       |
+| Nationality | varchar(50)  | YES  |     | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+4 rows in set (0.013 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table LIBRARIAN(
+    -> Librarian_ID VARCHAR(50) NOT NULL,
+    -> National_ID VARCHAR(12),
+    -> PRIMARY KEY(Librarian_ID),
+    -> FOREIGN KEY(National_ID) REFERENCES Person(NationalID));
+Query OK, 0 rows affected (0.288 sec)
+
+MariaDB [LibraryManagementSystem]> DESC LIBRARIAN;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| Librarian_ID | varchar(50) | NO   | PRI | NULL    |       |
+| National_ID  | varchar(12) | YES  | MUL | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.017 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table GENRE(
+    -> Genre_ID INT NOT NULL AUTO_INCREMENT,
+    -> Genre_name VARCHAR(20),
+    -> PRIMARY KEY(Genre_ID));
+Query OK, 0 rows affected (0.434 sec)
+
+MariaDB [LibraryManagementSystem]> DESC GENRE;
++------------+-------------+------+-----+---------+----------------+
+| Field      | Type        | Null | Key | Default | Extra          |
++------------+-------------+------+-----+---------+----------------+
+| Genre_ID   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| Genre_name | varchar(20) | YES  |     | NULL    |                |
++------------+-------------+------+-----+---------+----------------+
+2 rows in set (0.008 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table MEMBER(
+    ->      Member_ID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ->      National_ID VARCHAR(12),
+    ->      Profession VARCHAR(20),
+    ->      FOREIGN KEY (National_ID) REFERENCES Person(NationalID));
+Query OK, 0 rows affected (0.405 sec)
+
+MariaDB [LibraryManagementSystem]> DESC MEMBER;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| Member_ID   | int(11)     | NO   | PRI | NULL    | auto_increment |
+| National_ID | varchar(12) | YES  | MUL | NULL    |                |
+| Profession  | varchar(20) | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.013 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table Book_Genre(
+    ->     Book_ID INT NOT NULL,
+    ->     Genre_ID INT NOT NULL,
+    ->     PRIMARY KEY(Book_ID,Genre_ID),
+    ->     FOREIGN KEY(Genre_ID) REFERENCES Genre(Genre_ID));
+Query OK, 0 rows affected (0.303 sec)
+
+MariaDB [LibraryManagementSystem]> DESC Book_Genre;
++----------+---------+------+-----+---------+-------+
+| Field    | Type    | Null | Key | Default | Extra |
++----------+---------+------+-----+---------+-------+
+| Book_ID  | int(11) | NO   | PRI | NULL    |       |
+| Genre_ID | int(11) | NO   | PRI | NULL    |       |
++----------+---------+------+-----+---------+-------+
+2 rows in set (0.011 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table HNADLES(
+    -> ISBN VARCHAR(50)  NOT NULL,
+    -> Librarian_ID VARCHAR(20) NOT NULL,
+    -> PRIMARY KEY(ISBN,Librarian_ID),
+    -> FOREIGN KEY(ISBN) REFERENCES BOOK(ISBN),
+    -> FOREIGN KEY(Librarian_ID) REFERENCES LIBRARIAN(Librarian_ID));
+Query OK, 0 rows affected (0.328 sec)
+
+MariaDB [LibraryManagementSystem]> DESC HNADLES;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| ISBN         | varchar(50) | NO   | PRI | NULL    |       |
+| Librarian_ID | varchar(20) | NO   | PRI | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+2 rows in set (0.012 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table BORROWS(
+    ->      Member_ID INT NOT NULL,
+    ->      Title VARCHAR(50) NOT NULL,
+    ->      Borrow_Date DATE,
+    ->      Return_Date DATE,
+    ->      PRIMARY KEY(Member_ID,Title),
+    ->      FOREIGN KEY(Member_ID)REFERENCES Member(Member_ID));
+Query OK, 0 rows affected (0.320 sec)
+MariaDB [LibraryManagementSystem]> ALTER TABLE Borrows
+    ->     ADD CONSTRAINT unique_Member_ID_Title_Borrow_Date UNIQUE (Member_ID,Title,Borrow_Date);
+Query OK, 0 rows affected (0.392 sec)
+
+MariaDB [LibraryManagementSystem]> DESC Borrows;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| Member_ID   | int(11)     | NO   | PRI | NULL    |       |
+| Title       | varchar(50) | NO   | PRI | NULL    |       |
+| Borrow_Date | date        | YES  |     | NULL    |       |
+| Return_Date | date        | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.046 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE Table WRITTEN_BY(
+    -> ISBN VARCHAR(50)NOT NULL,
+    -> Author_ID VARCHAR(20) NOT NULL,
+    -> PRIMARY KEY(ISBN,Author_ID),
+    -> FOREIGN KEY(ISBN) REFERENCES BOOK(ISBN),
+    -> FOREIGN KEY(Author_ID)REFERENCES Author(Author_ID));
+Query OK, 0 rows affected (0.378 sec)
+
+MariaDB [LibraryManagementSystem]> DESC WRITTEN_BY;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| ISBN      | varchar(50) | NO   | PRI | NULL    |       |
+| Author_ID | varchar(20) | NO   | PRI | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.011 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE TABLE Users(
+    ->     NationalID VARCHAR(12),
+    ->     Password VARCHAR(100)  PRIMARY KEY,
+    ->     FOREIGN KEY(NationalID)REFERENCES Person(NationalID));
+Query OK, 0 rows affected (0.439 sec)
+
+MariaDB [LibraryManagementSystem]> DELIMITER $$
+MariaDB [LibraryManagementSystem]> CREATE TRIGGER generate_password_trigger BEFORE INSERT ON Users
+    ->      FOR EACH ROW
+    ->      BEGIN
+    ->       SET NEW.password = CONCAT('pass', LPAD(FLOOR(RAND() * 10000), 4, '0'));
+    ->      END $$
+Query OK, 0 rows affected (0.124 sec)
+
+
+MariaDB [LibraryManagementSystem]>
+MariaDB [LibraryManagementSystem]> DELIMITER ;
+MariaDB [LibraryManagementSystem]> desc Users;
++------------+--------------+------+-----+---------+-------+
+| Field      | Type         | Null | Key | Default | Extra |
++------------+--------------+------+-----+---------+-------+
+| NationalID | varchar(12)  | NO   | PRI | NULL    |       |
+| Password   | varchar(100) | YES  |     | NULL    |       |
++------------+--------------+------+-----+---------+-------+
+2 rows in set (0.017 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE TRIGGER add_user
+    -> AFTER INSERT ON Person
+    -> FOR EACH ROW
+    -> BEGIN
+    ->   INSERT INTO Users (NationalID) VALUES (NEW.NationalID);
+    -> END $$
+Query OK, 0 rows affected (0.089 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO PERSON (NationalID, FirstName, LastName, Address, ContactNumber, Email)
+    -> VALUES
+    -> ('199610101234', 'John', 'Doe', '123 Main Street, Colombo', 712345678, 'johndoe@example.com'),
+    -> ('198511151235', 'Jane', 'Smith', '456 Elm Avenue, Kandy', 712345679, 'janesmith@example.com'),
+    -> ('199712201236', 'Michael', 'Johnson', '789 Oak Lane, Galle', 712345680, 'michaeljohnson@example.com'),
+    -> ('199001251237', 'Sarah', 'Williams', '321 Maple Road, Negombo', 712345681, 'sarahwilliams@example.com'),
+    -> ('198805301238', 'David', 'Brown', '654 Pine Court, Jaffna', 712345682, 'davidbrown@example.com'),
+    -> ('199909051239', 'Jessica', 'Miller', '987 Cedar Street, Trincomalee', 712345683, 'jessicamiller@example.com'),
+    -> ('199410101240', 'Matthew', 'Anderson', '123 Oak Street, Batticaloa', 712345684, 'matthewanderson@example.com'),
+    -> ('8912251241V', 'Emily', 'Wilson', '456 Pine Avenue, Nuwara Eliya', 712345685, 'emilywilson@example.com'),
+    -> ('199307301242', 'Daniel', 'Taylor', '789 Maple Lane, Anuradhapura', 712345686, 'danieltaylor@example.com'),
+    -> ('198605051243', 'Olivia', 'Thomas', '321 Elm Road, Matara', 712345687, 'oliviathomas@example.com'),
+    -> ('199507101244', 'Christopher', 'Martin', '654 Cedar Court, Hambantota', 712345688, 'christophermartin@example.com'),
+    -> ('199812151245', 'Ava', 'Lee', '987 Maple Street, Polonnaruwa', 712345689, 'avalee@example.com'),
+    -> ('198311201246', 'Andrew', 'Garcia', '123 Pine Avenue, Ratnapura', 712345690, 'andrewgarcia@example.com'),
+    -> ('199211251247', 'Mia', 'Martinez', '456 Oak Lane, Badulla', 712345691, 'miamartinez@example.com'),
+    -> ('199611301248', 'James', 'Robinson', '789 Elm Street, Kilinochchi', 712345692, 'jamesrobinson@example.com'),
+    -> ('840905124V', 'Charlotte', 'Clark', '321 Cedar Avenue, Puttalam', 712345693, 'charlotteclark@example.com'),
+    -> ('199803101250', 'Benjamin', 'Harris', '654 Maple Road, Ampara', 712345694, 'benjaminharris@example.com'),
+    -> ('199108151251', 'Amelia', 'Young', '987 Pine Court, Vavuniya', 712345695, 'ameliayoung@example.com'),
+    -> ('870820125V', 'Daniel', 'King', '123 Elm Lane, Mannar', 712345696, 'danielking@example.com'),
+    -> ('199511251253', 'Sophia', 'Scott', '456 Cedar Road, Kalutara', 712345697, 'sophiascott@example.com');
+Query OK, 20 rows affected (0.236 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Person;
++--------------+-------------+----------+-------------------------------+---------------+-------------------------------+
+| NationalID   | FIrstName   | LastName | Address                       | ContactNumber | Email                         |
++--------------+-------------+----------+-------------------------------+---------------+-------------------------------+
+| 198311201246 | Andrew      | Garcia   | 123 Pine Avenue, Ratnapura    |     712345690 | andrewgarcia@example.com      |
+| 198511151235 | Jane        | Smith    | 456 Elm Avenue, Kandy         |     712345679 | janesmith@example.com         |
+| 198605051243 | Olivia      | Thomas   | 321 Elm Road, Matara          |     712345687 | oliviathomas@example.com      |
+| 198805301238 | David       | Brown    | 654 Pine Court, Jaffna        |     712345682 | davidbrown@example.com        |
+| 199001251237 | Sarah       | Williams | 321 Maple Road, Negombo       |     712345681 | sarahwilliams@example.com     |
+| 199108151251 | Amelia      | Young    | 987 Pine Court, Vavuniya      |     712345695 | ameliayoung@example.com       |
+| 199211251247 | Mia         | Martinez | 456 Oak Lane, Badulla         |     712345691 | miamartinez@example.com       |
+| 199307301242 | Daniel      | Taylor   | 789 Maple Lane, Anuradhapura  |     712345686 | danieltaylor@example.com      |
+| 199410101240 | Matthew     | Anderson | 123 Oak Street, Batticaloa    |     712345684 | matthewanderson@example.com   |
+| 199507101244 | Christopher | Martin   | 654 Cedar Court, Hambantota   |     712345688 | christophermartin@example.com |
+| 199511251253 | Sophia      | Scott    | 456 Cedar Road, Kalutara      |     712345697 | sophiascott@example.com       |
+| 199610101234 | John        | Doe      | 123 Main Street, Colombo      |     712345678 | johndoe@example.com           |
+| 199611301248 | James       | Robinson | 789 Elm Street, Kilinochchi   |     712345692 | jamesrobinson@example.com     |
+| 199712201236 | Michael     | Johnson  | 789 Oak Lane, Galle           |     712345680 | michaeljohnson@example.com    |
+| 199803101250 | Benjamin    | Harris   | 654 Maple Road, Ampara        |     712345694 | benjaminharris@example.com    |
+| 199812151245 | Ava         | Lee      | 987 Maple Street, Polonnaruwa |     712345689 | avalee@example.com            |
+| 199909051239 | Jessica     | Miller   | 987 Cedar Street, Trincomalee |     712345683 | jessicamiller@example.com     |
+| 840905124V   | Charlotte   | Clark    | 321 Cedar Avenue, Puttalam    |     712345693 | charlotteclark@example.com    |
+| 870820125V   | Daniel      | King     | 123 Elm Lane, Mannar          |     712345696 | danielking@example.com        |
+| 8912251241V  | Emily       | Wilson   | 456 Pine Avenue, Nuwara Eliya |     712345685 | emilywilson@example.com       |
++--------------+-------------+----------+-------------------------------+---------------+-------------------------------+
+20 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Users;
++--------------+----------+
+| NationalID   | Password |
++--------------+----------+
+| 198311201246 | pass6704 |
+| 198511151235 | pass3907 |
+| 198605051243 | pass8474 |
+| 198805301238 | pass7748 |
+| 199001251237 | pass7905 |
+| 199108151251 | pass7728 |
+| 199211251247 | pass9458 |
+| 199307301242 | pass6339 |
+| 199410101240 | pass1898 |
+| 199507101244 | pass3355 |
+| 199511251253 | pass9181 |
+| 199610101234 | pass8537 |
+| 199611301248 | pass7178 |
+| 199712201236 | pass3925 |
+| 199803101250 | pass6056 |
+| 199812151245 | pass1354 |
+| 199909051239 | pass5029 |
+| 840905124V   | pass7518 |
+| 870820125V   | pass0473 |
+| 8912251241V  | pass4407 |
++--------------+----------+
+20 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO Member(National_ID,Profession)
+    -> VALUES
+    -> ('199610101234','Student'),
+    -> ('199712201236','Teacher'),
+    -> ('199001251237','Professor'),
+    -> ('199909051239','Student'),
+    -> ('8912251241V','None'),
+    -> ('199507101244','Hair Stylist'),
+    -> ('199812151245','Manager'),
+    -> ('198311201246','Self employee'),
+    -> ('199611301248','Doctor'),
+    -> ('870820125V','Engineer');
+Query OK, 10 rows affected (0.090 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Member;
++-----------+--------------+---------------+
+| Member_ID | National_ID  | Profession    |
++-----------+--------------+---------------+
+|         1 | 199610101234 | Student       |
+|         2 | 199712201236 | Teacher       |
+|         3 | 199001251237 | Professor     |
+|         4 | 199909051239 | Student       |
+|         5 | 8912251241V  | None          |
+|         6 | 199507101244 | Hair Stylist  |
+|         7 | 199812151245 | Manager       |
+|         8 | 198311201246 | Self employee |
+|         9 | 199611301248 | Doctor        |
+|        10 | 870820125V   | Engineer      |
++-----------+--------------+---------------+
+10 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO Librarian(Librarian_ID,National_ID)
+    -> VALUES
+    -> ('L/001','198511151235'),
+    -> ('L/002','198805301238'),
+    -> ('L/003','199410101240'),
+    -> ('L/004','870820125V');
+Query OK, 4 rows affected (0.064 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Librarian;
++--------------+--------------+
+| Librarian_ID | National_ID  |
++--------------+--------------+
+| L/001        | 198511151235 |
+| L/002        | 198805301238 |
+| L/003        | 199410101240 |
+| L/004        | 870820125V   |
++--------------+--------------+
+4 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO Publisher(
+    -> Registration_No,Email,Address,Phone_number,Name)
+    -> VALUES
+    -> ('PUB001','pub001@gmail.com','123 Main Street, Cityville',5551234567,'Oxford University Press'),
+    -> ('PUB002','pub002@gmail.com','456 Elm Street, Townsville',5559876543,'Simon & Schuster'),
+    -> ('PUB003','pub003@gmail.com','789 Oak Avenue, Villageland',5552223333,'Macmillan Publishers'),
+    -> ('PUB004','pub004@gmail.com','321 Pine Road, Hamletville',5558881111,'Bloomsbury Publishing'),
+    -> ('PUB005','pub005@gmail.com','654 Cedar Lane, Countryside',5554446666,'Penguin Books'),
+    -> ('PUB006','pub006@gmail.com','210 Maple Drive, Brookside',5557779999,'MIT Press'),
+    -> ('PUB007','pub007@gmail.com','210 Birch Avenue, Hilltown',5553335555,'Pearson Education'),
+    -> ('PUB008','pub008@gmail.com','543 Maple Street, Riverside',5558881111,'Elsevier'),
+    -> ('PUB009','pub009@gmail.com','987 Cedar Avenue, Forestville',5552224444,'Springer Nature'),
+    -> ('PUB010','pub010@gmail.com','987 Willow Drive, Meadowville',5558889999,'Little, Brown and Company');
+Query OK, 10 rows affected, 10 warnings (0.067 sec)
+Records: 10  Duplicates: 0  Warnings: 10
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Publisher;
++--------------+-----------------+------------------+-------------------------------+--------------+---------------------------+
+| Publisher_ID | Registration_No | Email            | Address                       | Phone_number | Name                      |
++--------------+-----------------+------------------+-------------------------------+--------------+---------------------------+
+|            1 | PUB001          | pub001@gmail.com | 123 Main Street, Cityville    |   2147483647 | Oxford University Press   |
+|            2 | PUB002          | pub002@gmail.com | 456 Elm Street, Townsville    |   2147483647 | Simon & Schuster          |
+|            3 | PUB003          | pub003@gmail.com | 789 Oak Avenue, Villageland   |   2147483647 | Macmillan Publishers      |
+|            4 | PUB004          | pub004@gmail.com | 321 Pine Road, Hamletville    |   2147483647 | Bloomsbury Publishing     |
+|            5 | PUB005          | pub005@gmail.com | 654 Cedar Lane, Countryside   |   2147483647 | Penguin Books             |
+|            6 | PUB006          | pub006@gmail.com | 210 Maple Drive, Brookside    |   2147483647 | MIT Press                 |
+|            7 | PUB007          | pub007@gmail.com | 210 Birch Avenue, Hilltown    |   2147483647 | Pearson Education         |
+|            8 | PUB008          | pub008@gmail.com | 543 Maple Street, Riverside   |   2147483647 | Elsevier                  |
+|            9 | PUB009          | pub009@gmail.com | 987 Cedar Avenue, Forestville |   2147483647 | Springer Nature           |
+|           10 | PUB010          | pub010@gmail.com | 987 Willow Drive, Meadowville |   2147483647 | Little, Brown and Company |
++--------------+-----------------+------------------+-------------------------------+--------------+---------------------------+
+10 rows in set (0.000 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK (ISBN, Book_ID,Publisher_ID, Available_qty, Title, Received_date, Total_qty)VALUES  ('9780374530631', 101, 1, 7, 'The Old Man and the Sea', '2023-06-01', 30),('9780743273565', 102, 2, 3, 'The Lord of the Rings', '2023-06-02', 15),('9780812993546', 103, 3, 5, 'Slaughterhouse-Five', '2023-06-03', 20),('9780062315007', 104, 4, 9, 'The Odyssey', '2023-06-04', 40),('9780679723165', 105, 5, 2, 'One Hundred Years of Solitude', '2023-06-05', 10),('9780307476078', 106, 6, 8, 'A Game of Thrones', '2023-06-06', 35),('9780679760801', 107, 7, 4, 'The Bell Jar', '2023-06-07', 18),('9780385504201', 108, 8, 1, 'The Da Vinci Code', '2023-06-08', 5),('9780307277673', 109, 9, 6, 'The Catcher in the Rye', '2023-06-09', 25),('9780143039433', 110, 10, 3, 'The Brothers Karamazov', '2023-06-10', 12),('9780316769174', 111, 1, 4, 'Gone with the Wind', '2023-06-11', 18),('9781451626650', 112, 2, 7, 'The Adventures of Huckleberry Finn', '2023-06-12', 32),('9780140449334', 113, 3, 2, 'Crime and Punishment', '2023-06-13', 10),('9780061120084', 114, 4, 5, '1984', '2023-06-14', 20),('9780671027032', 115, 5, 1, 'Dune', '2023-06-15', 5),('9780141182551', 116, 6, 5, 'Brave New World', '2023-06-16', 22),('9780679734772', 117, 7, 7, 'The Picture of Dorian Gray', '2023-06-17', 36),('9780316015844', 118, 8, 6, 'The Hobbit', '2023-06-18', 28),('9780061120060', 119, 9, 9, 'Lord of the Flies', '2023-06-19', 42),('9780140186419', 120, 10, 7, 'Moby-Dick', '2023-06-20', 35),(9780134494225, 1, 1, 5, 'The Pragmatic Programmer: From Journeyman to Master', '2023-06-01', 10),(9780201633612, 2, 2, 10, 'The Design of Everyday Things', '2023-06-02', 15);
+Query OK, 22 rows affected (0.152 sec)
+Records: 22  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK (ISBN, Book_ID,Publisher_ID, Available_qty, Title, Received_date, Total_qty)VALUES(9780679745683, 11, 1, 5, 'Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', '2023-06-11', 60),(9780062242667, 12, 2, 10, 'The Power of Habit: Why We Do What We Do in Life and Business', '2023-06-12', 65),(9780804138677, 13, 3, 15, 'Deep Work: Rules for Focused Success in a Distracted World', '2023-06-13', 70),(9780316206363, 14, 4, 20, 'Start With Why: How Great Leaders Inspire Everyone to Take Action', '2023-06-14', 75),(9780062273418, 15, 5, 25, 'Originals: How Non-Conformists Move the World', '2023-06-15', 80),(9781608965702, 16, 6, 30, 'The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers', '2023-06-16', 85);
+Query OK, 6 rows affected (0.098 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK (ISBN, Book_ID,Publisher_ID, Available_qty, Title, Received_date, Total_qty)VALUES(1234567890, 7, 7, 70, 'Harry Potter and the Sorcerer''s Stone', '2023-06-07', 700),(3456789012, 24, 1, 10, 'The Alchemist', '2023-06-01', 100);
+Query OK, 2 rows affected (0.056 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM BOOK;
++---------------+---------+--------------+---------------+--------------------------------------------------------------------------------------+---------------+-----------+
+| ISBN          | Book_ID | Publisher_ID | Available_qty | Title                                                                                | Received_date | Total_qty |
++---------------+---------+--------------+---------------+--------------------------------------------------------------------------------------+---------------+-----------+
+| 1234567890    |       7 |            7 |            70 | Harry Potter and the Sorcerer's Stone                                                | 2023-06-07    |       700 |
+| 3456789012    |      24 |            1 |            10 | The Alchemist                                                                        | 2023-06-01    |       100 |
+| 9780061120060 |     119 |            9 |             9 | Lord of the Flies                                                                    | 2023-06-19    |        42 |
+| 9780061120084 |     114 |            4 |             5 | 1984                                                                                 | 2023-06-14    |        20 |
+| 9780062242667 |      12 |            2 |            10 | The Power of Habit: Why We Do What We Do in Life and Business                        | 2023-06-12    |        65 |
+| 9780062273418 |      15 |            5 |            25 | Originals: How Non-Conformists Move the World                                        | 2023-06-15    |        80 |
+| 9780062315007 |     104 |            4 |             9 | The Odyssey                                                                          | 2023-06-04    |        40 |
+| 9780134494225 |       1 |            1 |             5 | The Pragmatic Programmer: From Journeyman to Master                                  | 2023-06-01    |        10 |
+| 9780140186419 |     120 |           10 |             7 | Moby-Dick                                                                            | 2023-06-20    |        35 |
+| 9780140449334 |     113 |            3 |             2 | Crime and Punishment                                                                 | 2023-06-13    |        10 |
+| 9780141182551 |     116 |            6 |             5 | Brave New World                                                                      | 2023-06-16    |        22 |
+| 9780143039433 |     110 |           10 |             3 | The Brothers Karamazov                                                               | 2023-06-10    |        12 |
+| 9780201633612 |       2 |            2 |            10 | The Design of Everyday Things                                                        | 2023-06-02    |        15 |
+| 9780307277673 |     109 |            9 |             6 | The Catcher in the Rye                                                               | 2023-06-09    |        25 |
+| 9780307476078 |     106 |            6 |             8 | A Game of Thrones                                                                    | 2023-06-06    |        35 |
+| 9780316015844 |     118 |            8 |             6 | The Hobbit                                                                           | 2023-06-18    |        28 |
+| 9780316206363 |      14 |            4 |            20 | Start With Why: How Great Leaders Inspire Everyone to Take Action                    | 2023-06-14    |        75 |
+| 9780316769174 |     111 |            1 |             4 | Gone with the Wind                                                                   | 2023-06-11    |        18 |
+| 9780374530631 |     101 |            1 |             7 | The Old Man and the Sea                                                              | 2023-06-01    |        30 |
+| 9780385504201 |     108 |            8 |             1 | The Da Vinci Code                                                                    | 2023-06-08    |         5 |
+| 9780671027032 |     115 |            5 |             1 | Dune                                                                                 | 2023-06-15    |         5 |
+| 9780679723165 |     105 |            5 |             2 | One Hundred Years of Solitude                                                        | 2023-06-05    |        10 |
+| 9780679734772 |     117 |            7 |             7 | The Picture of Dorian Gray                                                           | 2023-06-17    |        36 |
+| 9780679745683 |      11 |            1 |             5 | Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            | 2023-06-11    |        60 |
+| 9780679760801 |     107 |            7 |             4 | The Bell Jar                                                                         | 2023-06-07    |        18 |
+| 9780743273565 |     102 |            2 |             3 | The Lord of the Rings                                                                | 2023-06-02    |        15 |
+| 9780804138677 |      13 |            3 |            15 | Deep Work: Rules for Focused Success in a Distracted World                           | 2023-06-13    |        70 |
+| 9780812993546 |     103 |            3 |             5 | Slaughterhouse-Five                                                                  | 2023-06-03    |        20 |
+| 9781451626650 |     112 |            2 |             7 | The Adventures of Huckleberry Finn                                                   | 2023-06-12    |        32 |
+| 9781608965702 |      16 |            6 |            30 | The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers | 2023-06-16    |        85 |
++---------------+---------+--------------+---------------+--------------------------------------------------------------------------------------+---------------+-----------+
+30 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO Author(Author_ID,Name,Email,Nationality)
+    -> VALUES
+    -> ('A001', 'John Smith', 'john.smith@example.com', 'United States'),
+    -> ('A002', 'Maria Garcia', 'maria.garcia@example.com', 'Spain'),
+    -> ('A003', 'Mohammed Khan', 'mohammed.khan@example.com', 'Pakistan'),
+    -> ('A004', 'Emily Wang', 'emily.wang@example.com', 'China'),
+    -> ('A005', 'Sofia Oliveira', 'sofia.oliveira@example.com', 'Brazil'),
+    -> ('A006', 'Hiroshi Tanaka', 'hiroshi.tanaka@example.com', 'Japan'),
+    -> ('A007', 'Emma Müller', 'emma.muller@example.com', 'Germany'),
+    -> ('A008', 'Luca Rossi', 'luca.rossi@example.com', 'Italy'),
+    -> ('A009', 'Isabella Silva', 'isabella.silva@example.com', 'Portugal'),
+    -> ('A010', 'Mikhail Ivanov', 'mikhail.ivanov@example.com', 'Russia');
+Query OK, 10 rows affected (0.064 sec)
+Records: 10  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Author;
++-----------+----------------+----------------------------+---------------+
+| Author_ID | Name           | Email                      | Nationality   |
++-----------+----------------+----------------------------+---------------+
+| A001      | John Smith     | john.smith@example.com     | United States |
+| A002      | Maria Garcia   | maria.garcia@example.com   | Spain         |
+| A003      | Mohammed Khan  | mohammed.khan@example.com  | Pakistan      |
+| A004      | Emily Wang     | emily.wang@example.com     | China         |
+| A005      | Sofia Oliveira | sofia.oliveira@example.com | Brazil        |
+| A006      | Hiroshi Tanaka | hiroshi.tanaka@example.com | Japan         |
+| A007      | Emma Müller    | emma.muller@example.com    | Germany       |
+| A008      | Luca Rossi     | luca.rossi@example.com     | Italy         |
+| A009      | Isabella Silva | isabella.silva@example.com | Portugal      |
+| A010      | Mikhail Ivanov | mikhail.ivanov@example.com | Russia        |
++-----------+----------------+----------------------------+---------------+
+10 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO GENRE(Genre_name)
+    -> VALUES
+    -> ('Fantasy'),
+    -> ('Romance'),
+    -> ('Mystery'),
+    -> ('Science Fiction'),
+    -> ('Thriller'),
+    -> ('Historical Fiction'),
+    -> ('Young Adult'),
+    -> ('Biography'),
+    -> ('Horror'),
+    -> ('Crime'),
+    -> ('Contemporary'),
+    -> ('Non-fiction'),
+    -> ('Adventure'),
+    -> ('Dystopian'),
+    -> ('Poetry'),
+    -> ('Self-help'),
+    -> ('Humor');
+Query OK, 17 rows affected (0.061 sec)
+Records: 17  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Genre;
++----------+--------------------+
+| Genre_ID | Genre_name         |
++----------+--------------------+
+|        1 | Fantasy            |
+|        2 | Romance            |
+|        3 | Mystery            |
+|        4 | Science Fiction    |
+|        5 | Thriller           |
+|        6 | Historical Fiction |
+|        7 | Young Adult        |
+|        8 | Biography          |
+|        9 | Horror             |
+|       10 | Crime              |
+|       11 | Contemporary       |
+|       12 | Non-fiction        |
+|       13 | Adventure          |
+|       14 | Dystopian          |
+|       15 | Poetry             |
+|       16 | Self-help          |
+|       17 | Humor              |
++----------+--------------------+
+17 rows in set (0.000 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO book_genre (book_id, genre_id) VALUES
+    -> (7, 1),
+    -> (24, 2),
+    -> (119, 3),
+    -> (114, 4),
+    -> (12, 5),
+    -> (15, 6),
+    -> (104, 7),
+    -> (1, 8),
+    -> (120, 9),
+    -> (113, 10),
+    -> (116, 11),
+    -> (110, 12),
+    -> (2, 13),
+    -> (109, 14),
+    -> (106, 15),
+    -> (118, 16),
+    -> (14, 17),
+    -> (111, 1),
+    -> (101, 2),
+    -> (108, 3),
+    -> (115, 4),
+    -> (105, 5),
+    -> (117, 6),
+    -> (11, 7),
+    -> (107, 8),
+    -> (102, 9),
+    -> (13, 10),
+    -> (103, 11),
+    -> (112, 12),
+    -> (16, 13);
+Query OK, 30 rows affected (0.154 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book_genre;
++---------+----------+
+| Book_ID | Genre_ID |
++---------+----------+
+|       1 |        8 |
+|       2 |       13 |
+|       7 |        1 |
+|      11 |        7 |
+|      12 |        5 |
+|      13 |       10 |
+|      14 |       17 |
+|      15 |        6 |
+|      16 |       13 |
+|      24 |        2 |
+|     101 |        2 |
+|     102 |        9 |
+|     103 |       11 |
+|     104 |        7 |
+|     105 |        5 |
+|     106 |       15 |
+|     107 |        8 |
+|     108 |        3 |
+|     109 |       14 |
+|     110 |       12 |
+|     111 |        1 |
+|     112 |       12 |
+|     113 |       10 |
+|     114 |        4 |
+|     115 |        4 |
+|     116 |       11 |
+|     117 |        6 |
+|     118 |       16 |
+|     119 |        3 |
+|     120 |        9 |
++---------+----------+
+30 rows in set (0.004 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO WRITTEN_BY(ISBN,Author_ID)
+    -> VALUES
+    -> ('1234567890', 'A001'),
+    -> ('3456789012', 'A002'),
+    -> ('9780061120060', 'A003'),
+    -> ('9780061120084', 'A004'),
+    -> ('9780062242667', 'A005'),
+    -> ('9780062273418', 'A006'),
+    -> ('9780062315007', 'A007'),
+    -> ('9780134494225', 'A008'),
+    -> ('9780140186419', 'A009'),
+    -> ('9780140449334', 'A010'),
+    -> ('9780141182551', 'A001'),
+    -> ('9780143039433', 'A002'),
+    -> ('9780201633612', 'A003'),
+    -> ('9780307277673', 'A004'),
+    -> ('9780307476078', 'A005'),
+    -> ('9780316015844', 'A006'),
+    -> ('9780316206363', 'A007'),
+    -> ('9780316769174', 'A008'),
+    -> ('9780374530631', 'A009'),
+    -> ('9780385504201', 'A010'),
+    -> ('9780671027032', 'A001'),
+    -> ('9780679723165', 'A002'),
+    -> ('9780679734772', 'A003'),
+    -> ('9780679745683', 'A004'),
+    -> ('9780679760801', 'A005'),
+    -> ('9780743273565', 'A006'),
+    -> ('9780804138677', 'A007'),
+    -> ('9780812993546', 'A008'),
+    -> ('9781451626650', 'A009'),
+    -> ('9781608965702', 'A010');
+Query OK, 30 rows affected (0.147 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM WRITTEN_BY;
++---------------+-----------+
+| ISBN          | Author_ID |
++---------------+-----------+
+| 1234567890    | A001      |
+| 3456789012    | A002      |
+| 9780061120060 | A003      |
+| 9780061120084 | A004      |
+| 9780062242667 | A005      |
+| 9780062273418 | A006      |
+| 9780062315007 | A007      |
+| 9780134494225 | A008      |
+| 9780140186419 | A009      |
+| 9780140449334 | A010      |
+| 9780141182551 | A001      |
+| 9780143039433 | A002      |
+| 9780201633612 | A003      |
+| 9780307277673 | A004      |
+| 9780307476078 | A005      |
+| 9780316015844 | A006      |
+| 9780316206363 | A007      |
+| 9780316769174 | A008      |
+| 9780374530631 | A009      |
+| 9780385504201 | A010      |
+| 9780671027032 | A001      |
+| 9780679723165 | A002      |
+| 9780679734772 | A003      |
+| 9780679745683 | A004      |
+| 9780679760801 | A005      |
+| 9780743273565 | A006      |
+| 9780804138677 | A007      |
+| 9780812993546 | A008      |
+| 9781451626650 | A009      |
+| 9781608965702 | A010      |
++---------------+-----------+
+30 rows in set (0.001 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO HNADLES(ISBN,Librarian_ID)
+    -> VALUES
+    -> ('1234567890', 'L/001'),
+    -> ('3456789012', 'L/002'),
+    -> ('9780061120060', 'L/003'),
+    -> ('9780061120084', 'L/004'),
+    -> ('9780062242667', 'L/001'),
+    -> ('9780062273418', 'L/002'),
+    -> ('9780062315007', 'L/003'),
+    -> ('9780134494225', 'L/004'),
+    -> ('9780140186419', 'L/001'),
+    -> ('9780140449334', 'L/002'),
+    -> ('9780141182551', 'L/003'),
+    -> ('9780143039433', 'L/004'),
+    -> ('9780201633612', 'L/001'),
+    -> ('9780307277673', 'L/002'),
+    -> ('9780307476078', 'L/003'),
+    -> ('9780316015844', 'L/004'),
+    -> ('9780316206363', 'L/001'),
+    -> ('9780316769174', 'L/002'),
+    -> ('9780374530631', 'L/003'),
+    -> ('9780385504201', 'L/004'),
+    -> ('9780671027032', 'L/001'),
+    -> ('9780679723165', 'L/002'),
+    -> ('9780679734772', 'L/003'),
+    -> ('9780679745683', 'L/004'),
+    -> ('9780679760801', 'L/001'),
+    -> ('9780743273565', 'L/002'),
+    -> ('9780804138677', 'L/003'),
+    -> ('9780812993546', 'L/004'),
+    -> ('9781451626650', 'L/001'),
+    -> ('9781608965702', 'L/002');
+Query OK, 30 rows affected (0.142 sec)
+Records: 30  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM HNADLES;
++---------------+--------------+
+| ISBN          | Librarian_ID |
++---------------+--------------+
+| 1234567890    | L/001        |
+| 3456789012    | L/002        |
+| 9780061120060 | L/003        |
+| 9780061120084 | L/004        |
+| 9780062242667 | L/001        |
+| 9780062273418 | L/002        |
+| 9780062315007 | L/003        |
+| 9780134494225 | L/004        |
+| 9780140186419 | L/001        |
+| 9780140449334 | L/002        |
+| 9780141182551 | L/003        |
+| 9780143039433 | L/004        |
+| 9780201633612 | L/001        |
+| 9780307277673 | L/002        |
+| 9780307476078 | L/003        |
+| 9780316015844 | L/004        |
+| 9780316206363 | L/001        |
+| 9780316769174 | L/002        |
+| 9780374530631 | L/003        |
+| 9780385504201 | L/004        |
+| 9780671027032 | L/001        |
+| 9780679723165 | L/002        |
+| 9780679734772 | L/003        |
+| 9780679745683 | L/004        |
+| 9780679760801 | L/001        |
+| 9780743273565 | L/002        |
+| 9780804138677 | L/003        |
+| 9780812993546 | L/004        |
+| 9781451626650 | L/001        |
+| 9781608965702 | L/002        |
++---------------+--------------+
+30 rows in set (0.000 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BORROWS(Title,Member_ID,Borrow_Date,Return_Date)
+    ->     VALUES
+    ->     ('Moby-Dick ', 1, '2023-06-01', '2023-06-08'),
+    ->     ('Gone with the Wind', 2, '2023-06-02', '2023-06-09'),
+    ->     (' Slaughterhouse-Five ', 3, '2023-06-03', '2023-06-10'),
+    ->     (' Start With Why: How Great Leaders Inspire Everyone to Take Action  ', 4, '2023-06-04', '2023-06-11'),
+    ->     ('Brave New World', 5, '2023-06-05', '2023-06-12'),
+    ->     (' Crime and Punishment', 6, '2023-06-06', '2023-06-13'),
+    ->     ('The Lord of the Rings ', 7, '2023-06-07', '2023-06-14'),
+    ->     ('The Brothers Karamazov', 8, '2023-06-08', '2023-06-15'),
+    ->     ('The Bell Jar', 9, '2023-06-09', '2023-06-16'),
+    ->     ('Dune', 10, '2023-06-10', '2023-06-17'),
+    ->     ('The Odyssey', 1, '2023-06-20', '2023-06-27'),
+    ->     (' The Brothers Karamazov ', 2, '2023-06-21', '2023-06-28'),
+    ->     ('The Picture of Dorian Gray', 3, '2023-06-22', '2023-06-29'),
+    ->     ('The Old Man and the Sea', 4, '2023-06-23', '2023-06-30'),
+    ->     ('The Da Vinci Code', 5, '2023-06-24', '2023-07-01');
+
+MariaDB [LibraryManagementSystem]> SELECT *  FROM Borrows;
++-----------+----------------------------------------------------+-------------+-------------+
+| Member_ID | Title                                              | Borrow_Date | Return_Date |
++-----------+----------------------------------------------------+-------------+-------------+
+|         1 | Moby-Dick                                          | 2023-06-01  | 2023-06-08  |
+|         1 | The Odyssey                                        | 2023-06-20  | 2023-06-27  |
+|         2 |  The Brothers Karamazov                            | 2023-06-21  | 2023-06-28  |
+|         2 | Gone with the Wind                                 | 2023-06-02  | 2023-06-09  |
+|         3 |  Slaughterhouse-Five                               | 2023-06-03  | 2023-06-10  |
+|         3 | The Picture of Dorian Gray                         | 2023-06-22  | 2023-06-29  |
+|         4 |  Start With Why: How Great Leaders Inspire Everyon | 2023-06-04  | 2023-06-11  |
+|         4 | The Old Man and the Sea                            | 2023-06-23  | 2023-06-30  |
+|         5 | Brave New World                                    | 2023-06-05  | 2023-06-12  |
+|         5 | The Da Vinci Code                                  | 2023-06-24  | 2023-07-01  |
+|         6 |  Crime and Punishment                              | 2023-06-06  | 2023-06-13  |
+|         7 | The Lord of the Rings                              | 2023-06-07  | 2023-06-14  |
+|         8 | The Brothers Karamazov                             | 2023-06-08  | 2023-06-15  |
+|         9 | The Bell Jar                                       | 2023-06-09  | 2023-06-16  |
+|        10 | Dune                                               | 2023-06-10  | 2023-06-17  |
++-----------+----------------------------------------------------+-------------+-------------+
+15 rows in set (0.000 sec)
+
+MariaDB [LibraryManagementSystem]> ALTER TABLE Users
+    -> ADD CONSTRAINT unique_NationalID_Password UNIQUE (NationalID,Password);
+Query OK, 0 rows affected (0.721 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> ALTER TABLE BOOK
+    ->      DROP COLUMN Available_qty,
+    ->      DROP COLUMN Total_qty;
+Query OK, 0 rows affected (0.398 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book;
++---------------+---------+--------------+--------------------------------------------------------------------------------------+---------------+
+| ISBN          | Book_ID | Publisher_ID | Title                                                                                | Received_date |
++---------------+---------+--------------+--------------------------------------------------------------------------------------+---------------+
+| 1234567890    |       7 |            7 | Harry Potter and the Sorcerer's Stone                                                | 2023-06-07    |
+| 3456789012    |      24 |            1 | The Alchemist                                                                        | 2023-06-01    |
+| 9780061120060 |     119 |            9 | Lord of the Flies                                                                    | 2023-06-19    |
+| 9780061120084 |     114 |            4 | 1984                                                                                 | 2023-06-14    |
+| 9780062242667 |      12 |            2 | The Power of Habit: Why We Do What We Do in Life and Business                        | 2023-06-12    |
+| 9780062273418 |      15 |            5 | Originals: How Non-Conformists Move the World                                        | 2023-06-15    |
+| 9780062315007 |     104 |            4 | The Odyssey                                                                          | 2023-06-04    |
+| 9780134494225 |       1 |            1 | The Pragmatic Programmer: From Journeyman to Master                                  | 2023-06-01    |
+| 9780140186419 |     120 |           10 | Moby-Dick                                                                            | 2023-06-20    |
+| 9780140449334 |     113 |            3 | Crime and Punishment                                                                 | 2023-06-13    |
+| 9780141182551 |     116 |            6 | Brave New World                                                                      | 2023-06-16    |
+| 9780143039433 |     110 |           10 | The Brothers Karamazov                                                               | 2023-06-10    |
+| 9780201633612 |       2 |            2 | The Design of Everyday Things                                                        | 2023-06-02    |
+| 9780307277673 |     109 |            9 | The Catcher in the Rye                                                               | 2023-06-09    |
+| 9780307476078 |     106 |            6 | A Game of Thrones                                                                    | 2023-06-06    |
+| 9780316015844 |     118 |            8 | The Hobbit                                                                           | 2023-06-18    |
+| 9780316206363 |      14 |            4 | Start With Why: How Great Leaders Inspire Everyone to Take Action                    | 2023-06-14    |
+| 9780316769174 |     111 |            1 | Gone with the Wind                                                                   | 2023-06-11    |
+| 9780374530631 |     101 |            1 | The Old Man and the Sea                                                              | 2023-06-01    |
+| 9780385504201 |     108 |            8 | The Da Vinci Code                                                                    | 2023-06-08    |
+| 9780671027032 |     115 |            5 | Dune                                                                                 | 2023-06-15    |
+| 9780679723165 |     105 |            5 | One Hundred Years of Solitude                                                        | 2023-06-05    |
+| 9780679734772 |     117 |            7 | The Picture of Dorian Gray                                                           | 2023-06-17    |
+| 9780679745683 |      11 |            1 | Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            | 2023-06-11    |
+| 9780679760801 |     107 |            7 | The Bell Jar                                                                         | 2023-06-07    |
+| 9780743273565 |     102 |            2 | The Lord of the Rings                                                                | 2023-06-02    |
+| 9780804138677 |      13 |            3 | Deep Work: Rules for Focused Success in a Distracted World                           | 2023-06-13    |
+| 9780812993546 |     103 |            3 | Slaughterhouse-Five                                                                  | 2023-06-03    |
+| 9781451626650 |     112 |            2 | The Adventures of Huckleberry Finn                                                   | 2023-06-12    |
+| 9781608965702 |      16 |            6 | The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers | 2023-06-16    |
++---------------+---------+--------------+--------------------------------------------------------------------------------------+---------------+
+30 rows in set (0.282 sec)
+
+MariaDB [LibraryManagementSystem]> CREATE TABLE BOOK_COUNT(
+    ->     Title VARCHAR(128),
+    ->     Now_available_qty INT UNSIGNED,
+    ->     Total_qty INT UNSIGNED NOT NULL,
+    ->     PRIMARY KEY (Title));
+Query OK, 0 rows affected (0.321 sec)
+
+MariaDB [LibraryManagementSystem]> DESC BOOK_COUNT;
++-------------------+------------------+------+-----+---------+-------+
+| Field             | Type             | Null | Key | Default | Extra |
++-------------------+------------------+------+-----+---------+-------+
+| Title             | varchar(128)     | NO   | PRI | NULL    |       |
+| Now_available_qty | int(10) unsigned | YES  |     | NULL    |       |
+| Total_qty         | int(10) unsigned | NO   |     | NULL    |       |
++-------------------+------------------+------+-----+---------+-------+
+3 rows in set (0.031 sec)
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK_COUNT (Title, Now_available_qty, Total_qty)
+    -> VALUES
+    -> ('Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones', 5, 60),
+    -> ('The Power of Habit: Why We Do What We Do in Life and Business', 10, 65),
+    -> ('Deep Work: Rules for Focused Success in a Distracted World', 15, 70),
+    -> ('Start With Why: How Great Leaders Inspire Everyone to Take Action', 20, 75),
+    -> ('Originals: How Non-Conformists Move the World', 25, 80),
+    -> ('The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers',30, 85);
+Query OK, 6 rows affected (0.048 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK_COUNT (Title, Now_available_qty, Total_qty)VALUES  ('The Old Man and the Sea', 7, 30),  ('The Lord of the Rings', 3, 15),  ('Slaughterhouse-Five', 5, 20),  ('The Odyssey', 9, 40),  ('One Hundred Years of Solitude', 2, 10),  ('A Game of Thrones', 8, 35),  ('The Bell Jar', 4, 18),  ('The Da Vinci Code', 1, 5),  ('The Catcher in the Rye', 6, 25),  ('The Brothers Karamazov', 3, 12),  ('Gone with the Wind', 4, 18),  ('The Adventures of Huckleberry Finn', 7, 32),  ('Crime and Punishment', 2, 10),  ('1984', 5, 20),  ('Dune', 1, 5),  ('Brave New World', 5, 22),  ('The Picture of Dorian Gray', 7, 36),  ('The Hobbit', 6, 28),  ('Lord of the Flies', 9, 42),  ('Moby-Dick', 7, 35);
+Query OK, 20 rows affected (0.120 sec)
+Records: 20  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> INSERT INTO BOOK_COUNT (Title, Now_available_qty, Total_qty)VALUES  ('Harry Potter and the Sorcerer''s Stone', 70, 700),  ('The Alchemist', 10, 100);
+Query OK, 2 rows affected (0.054 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book_Count;
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| Title                                                                                | Now_available_qty | Total_qty |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| 1984                                                                                 |                 5 |        20 |
+| A Game of Thrones                                                                    |                 8 |        35 |
+| Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            |                 5 |        60 |
+| Brave New World                                                                      |                 5 |        22 |
+| Crime and Punishment                                                                 |                 2 |        10 |
+| Deep Work: Rules for Focused Success in a Distracted World                           |                15 |        70 |
+| Dune                                                                                 |                 1 |         5 |
+| Gone with the Wind                                                                   |                 4 |        18 |
+| Harry Potter and the Sorcerer's Stone                                                |                70 |       700 |
+| Lord of the Flies                                                                    |                 9 |        42 |
+| Moby-Dick                                                                            |                 7 |        35 |
+| One Hundred Years of Solitude                                                        |                 2 |        10 |
+| Originals: How Non-Conformists Move the World                                        |                25 |        80 |
+| Slaughterhouse-Five                                                                  |                 5 |        20 |
+| Start With Why: How Great Leaders Inspire Everyone to Take Action                    |                20 |        75 |
+| The Adventures of Huckleberry Finn                                                   |                 7 |        32 |
+| The Alchemist                                                                        |                10 |       100 |
+| The Bell Jar                                                                         |                 4 |        18 |
+| The Brothers Karamazov                                                               |                 3 |        12 |
+| The Catcher in the Rye                                                               |                 6 |        25 |
+| The Da Vinci Code                                                                    |                 1 |         5 |
+| The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers |                30 |        85 |
+| The Hobbit                                                                           |                 6 |        28 |
+| The Lord of the Rings                                                                |                 3 |        15 |
+| The Odyssey                                                                          |                 9 |        40 |
+| The Old Man and the Sea                                                              |                 7 |        30 |
+| The Picture of Dorian Gray                                                           |                 7 |        36 |
+| The Power of Habit: Why We Do What We Do in Life and Business                        |                10 |        65 |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+28 rows in set (0.000 sec)
+
+MariaDB [LibraryManagementSystem]> UPDATE BOOK_COUNT
+    ->     SET Total_qty = 60
+    ->     WHERE TITLE = 'Harry Potter and the Sorcerer''s Stone';
+Query OK, 1 row affected (0.065 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> UPDATE BOOK_COUNT
+    ->     SET Now_available_qty = 10
+    ->     WHERE TITLE = 'Harry Potter and the Sorcerer''s Stone';
+Query OK, 1 row affected (0.053 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> UPDATE BOOK_COUNT
+    ->     SET Total_qty = 15
+    ->     WHERE TITLE = 'The Alchemist';
+Query OK, 1 row affected (0.066 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [LibraryManagementSystem]> SELECT * FROM Book_Count;
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| Title                                                                                | Now_available_qty | Total_qty |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+| 1984                                                                                 |                 5 |        20 |
+| A Game of Thrones                                                                    |                 8 |        35 |
+| Atomic Habits: An Easy & Proven Way to Build Good Habits & Break Bad Ones            |                 5 |        60 |
+| Brave New World                                                                      |                 5 |        22 |
+| Crime and Punishment                                                                 |                 2 |        10 |
+| Deep Work: Rules for Focused Success in a Distracted World                           |                15 |        70 |
+| Dune                                                                                 |                 1 |         5 |
+| Gone with the Wind                                                                   |                 4 |        18 |
+| Harry Potter and the Sorcerer's Stone                                                |                10 |        60 |
+| Lord of the Flies                                                                    |                 9 |        42 |
+| Moby-Dick                                                                            |                 7 |        35 |
+| One Hundred Years of Solitude                                                        |                 2 |        10 |
+| Originals: How Non-Conformists Move the World                                        |                25 |        80 |
+| Slaughterhouse-Five                                                                  |                 5 |        20 |
+| Start With Why: How Great Leaders Inspire Everyone to Take Action                    |                20 |        75 |
+| The Adventures of Huckleberry Finn                                                   |                 7 |        32 |
+| The Alchemist                                                                        |                10 |        15 |
+| The Bell Jar                                                                         |                 4 |        18 |
+| The Brothers Karamazov                                                               |                 3 |        12 |
+| The Catcher in the Rye                                                               |                 6 |        25 |
+| The Da Vinci Code                                                                    |                 1 |         5 |
+| The Hard Thing About Hard Things: Building a Business When There Are No Easy Answers |                30 |        85 |
+| The Hobbit                                                                           |                 6 |        28 |
+| The Lord of the Rings                                                                |                 3 |        15 |
+| The Odyssey                                                                          |                 9 |        40 |
+| The Old Man and the Sea                                                              |                 7 |        30 |
+| The Picture of Dorian Gray                                                           |                 7 |        36 |
+| The Power of Habit: Why We Do What We Do in Life and Business                        |                10 |        65 |
++--------------------------------------------------------------------------------------+-------------------+-----------+
+28 rows in set (0.000 sec)
+
