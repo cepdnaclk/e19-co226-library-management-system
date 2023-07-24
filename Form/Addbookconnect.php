@@ -46,10 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
     }
     if(mysqli_query($conn, $updateQuery_now) && mysqli_query($conn, $updateQuery_total)){
-        //echo "Book quantity increased successfully.<br>";
+            //echo "Book quantity increased successfully.<br>";
     }else{
-        //echo "Error updating book quantity: " . mysqli_error($conn) . "<br>";
-        //echo "Error inserting data: " . mysqli_error($conn);
+            //echo "Error updating book quantity: " . mysqli_error($conn) . "<br>";
+            //echo "Error inserting data: " . mysqli_error($conn);
     }
     
     

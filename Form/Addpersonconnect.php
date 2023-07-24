@@ -55,7 +55,7 @@ mysqli_close($conn);
         =1.0">
     </head>
 <body>
-    <h1>Enter the details here</h1>
+    <h1>Enter the member details here</h1>
     <form action="" method="POST">
         <p>National ID: </p><input type = "text" name="national_id">
         <p>First Name: </p><input type = "text" name="first_name">

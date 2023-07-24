@@ -60,7 +60,7 @@ mysqli_close($conn);
         <meta name = "viewport" content ="width=device-width,initial-scale=1.0">
     </head>
 <body>
-    <h1>Enter the details here</h1>
+    <h1>Enter the  publisher details here</h1>
     <form action="Addpublisherconnect.php" method="POST">
         <p>Name: </p><input type = "text"name="name">
         <p>Address: </p><input type = "text" name="address">
