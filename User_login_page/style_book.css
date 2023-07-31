@@ -1,0 +1,62 @@
+/* Your CSS styles for the table and container can be added here */
+/* Add any additional styles as needed */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url("Book_background.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    max-width: 700px;
+    margin: 20px auto;
+    /*background-color: #fff;*/
+    /* Make the container background transparent with 50% opacity */
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    /*color: #572503;*/
+    color:#371c03;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid #eb0a8a;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    color:bisque;
+    background-color: #8c4809;
+    font-weight: bold;
+}
+
+/* Apply alternating background colors to table rows */
+tr:nth-child(odd) {
+    background-color:bisque; /* Light gray */
+}
+
+tr:nth-child(even) {
+    background-color: #ffffff; /* White */
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:  #371c03;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
