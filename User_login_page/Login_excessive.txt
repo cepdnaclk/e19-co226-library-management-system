@@ -1,0 +1,304 @@
+<!--DOCTYPE html>
+<html lang = "en">
+    <head>
+        <title>
+            Library Management System
+        </title>
+        <link rel = "stylesheet" href = "style.css">
+    </head>
+    <body>
+        <div class="main">
+            <div class="navbar">
+
+                <div class="icon">
+                    <img src="logo2.png" width="100" height="100">
+                </div>
+                
+
+                <div class="menu">
+                    <ul>
+                        <li><a href = "#">HOME</a></li>
+                        <li><a href = "about_us.html">ABOUT</a></li>
+
+                        <li><a href = "#">CONTACT</a></li>
+                        <li><a href = "#">BOOKS</a></li>
+                    </ul>
+                </div>
+
+                <div class = "search">
+                    <form action="search.php" method="POST" target="_blank">
+                        <input class = "srch" type="search" name= "search" placeholder="Search">
+                        <button class="btn">Search</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class = "content">
+                <h1>Library <br> 
+                    <span>Management</span><br>
+                    System
+                </h1>
+                <br> 
+                <br>
+                <br>  
+                <h2>Welcome !!!</h2>
+                <br>
+            </div>
+
+            <div class="form">
+                <h2>Login Here</h2>
+                <form method = "POST">
+                    <input type = "varchar" name = "NIC" placeholder="NIC">
+                    <input type = "password" name = "PASSWORD" placeholder="Password">
+                    <button class = "btnn" type="submit">Login</button>
+                    <div class = "error">
+                    </*?php echo $error ?*/>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+
+            
+    </body>
+
+</html-->
+
+<?php
+/*
+$error = " ";
+if ($_POST)
+{
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "auth";
+
+    $conn = mysqli_connect($host, $user, $pass, $db);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $NIC = $_POST['NIC'];
+    $Password = $_POST['PASSWORD'];
+
+    $query = "SELECT * FROM users WHERE User_Name = '$NIC' AND Passwords = '$Password'";
+
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        if(mysqli_num_rows($result) == 1){
+            session_start();
+            $_SESSION['auth'] = 'true';
+            header('location:about_us.html');
+        }
+        else{
+            $error = "Wrong Username or Password";
+        }
+    } else {
+        echo "Query execution failed: " . mysqli_error($conn);
+    }
+
+
+    mysqli_close($conn);
+}
+*/
+?>
+
+<?php
+$error = ""; // Initialize the $error variable
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Library Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="main">
+    <div class="navbar">
+        <div class="icon">
+            <img src="logo2.png" width="100" height="100">
+        </div>
+        <div class="menu">
+            <ul>
+                <li><a href="#">HOME</a></li>
+                <li><a href="about_us.html">ABOUT</a></li>
+                <!--li><a href = "#"></a></li-->
+                <li><a href="Contact.html">CONTACT</a></li>
+                <li><a href="Book.php">BOOKS</a></li>
+            </ul>
+        </div>
+        <div class="search">
+            <form action="search.php" method="POST" target="_blank">
+                <input class="srch" type="search" name="search" placeholder="Search">
+                <!--a href = "#">
+                    <button class="btn">Search</button>
+                </a-->
+                <button class="btn">Search</button>
+            </form>
+            <!--script src = "search.php"></script-->
+        </div>
+    </div>
+    <div class="content">
+        <h1>Library <br>
+            <span>Management</span><br>
+            System
+        </h1>
+        <br>
+        <br>
+        <br>
+        <h2>Welcome !!!</h2>
+        <br>
+    </div>
+    <div class="form">
+        <h2>Login Here</h2>
+        <form method="POST">
+            <input type="varchar" name="NIC" placeholder="NIC">
+            <input type="password" name="PASSWORD" placeholder="Password">
+            <button class="btnn" type="submit">Login</button>
+            <div class="error">
+                <?php echo $error ?>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
+
+<?php
+$error = ""; // Initialize the $error variable
+
+if ($_POST) {
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "librarymanagementsystem";
+
+    $conn = mysqli_connect($host, $user, $pass, $db);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $NIC = $_POST['NIC'];
+    $Password = $_POST['PASSWORD'];
+/*
+    $query = "SELECT * FROM users WHERE User_Name = '$NIC' AND Passwords = '$Password'";
+
+    $result = mysqli_query($conn, $query);
+    if ($result) {
+        if (mysqli_num_rows($result) == 1) {
+            session_start();
+            $_SESSION['auth'] = 'true';
+            header('location: about_us.html');
+        } else {
+            $error = "Wrong Username or Password";
+        }
+    } else {
+        echo "Query execution failed: " . mysqli_error($conn);
+    }
+*/
+
+    $query_LIB = "SELECT * 
+                  FROM users 
+                  JOIN librarian on librarian.National_ID = users.National_ID
+                  WHERE librarian.National_ID = '$NIC' AND users.Password = '$Password'";
+    $query_MEM = "SELECT * 
+                  FROM users 
+                  JOIN member on member.National_ID = users.National_ID
+                  WHERE member.National_ID = '$NIC' AND users.Password = $Password'";
+
+    $result_MEM = mysqli_query($conn, $query_MEM);
+    if ($result_MEM) {
+        if (mysqli_num_rows($result_MEM) == 1) {
+            session_start();
+            $_SESSION['librarymanagementsystem'] = 'true';
+            header('location: http://localhost/e19-co226-library-management-system/User_login_thevi/Member.php');
+        } else {
+            $error = "Wrong Username or Password";
+        }
+    } else {
+        echo "Query execution failed: " . mysqli_error($conn);
+    }
+
+    $result_LIB = mysqli_query($conn, $query_LIB);
+    if ($result_LIB) {
+        if (mysqli_num_rows($result_LIB) == 1) {
+            session_start();
+            $_SESSION['librarymanagementsystem'] = 'true';
+            header('location: http://localhost/e19-co226-library-management-system/User_login_thevi/Librarian.php');
+        } else {
+            $error = "Wrong Username or Password";
+        }
+    } else {
+        echo "Query execution failed: " . mysqli_error($conn);
+    }
+
+    mysqli_close($conn);
+}
+?>
+<?php
+/*
+$error = "";
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $host = "localhost";
+    $user = "root";
+    $pass = "";
+    $db = "librarymanagementsystem";
+
+    $conn = mysqli_connect($host, $user, $pass, $db);
+    if (!$conn) {
+        die("Connection failed: " . mysqli_connect_error());
+    }
+
+    $NIC = mysqli_real_escape_string($conn, $_POST['NIC']);
+    $Password = $_POST['PASSWORD']; // We'll validate the password later
+
+    // Validate NIC and Password (You can add more validation rules as needed)
+    if (empty($NIC) || empty($Password)) {
+        $error = "NIC and Password are required.";
+    } else {
+        // Use a single query with INNER JOIN
+        $query = "SELECT u.*, m.*, l.*
+                  FROM users u
+                  LEFT JOIN member m ON u.National_ID = m.National_ID
+                  LEFT JOIN librarian l ON u.National_ID = l.National_ID
+                  WHERE u.National_ID = '$NIC'";
+
+        $result = mysqli_query($conn, $query);
+
+        if ($result) {
+            if (mysqli_num_rows($result) == 1) {
+                $row = mysqli_fetch_assoc($result);
+                if (password_verify($Password, $row['Password'])) {
+                    session_start();
+                    $_SESSION['librarymanagementsystem'] = 'true';
+                    if (!empty($row['Member_ID'])) {
+                        header('location: http://localhost/e19-co226-library-management-system/User_login_thevi/Member.php');
+                    } elseif (!empty($row['Librarian_ID'])) {
+                        header('location: http://localhost/e19-co226-library-management-system/User_login_thevi/Librarian.php');
+                    } else {
+                        $error = "Invalid User Type";
+                    }
+                    exit(); // Terminate script execution after redirect
+                } else {
+                    $error = "Wrong Password";
+                }
+            } else {
+                $error = "User not found";
+            }
+        } else {
+            echo "Query execution failed: " . mysqli_error($conn);
+        }
+    }
+
+    mysqli_close($conn);
+}
+*/
+?>
+<!-- Rest of the HTML code remains the same -->
+
+
