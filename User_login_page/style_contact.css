@@ -1,0 +1,65 @@
+/* For the background image 
+.main {
+    width: 100%;
+    /* Use a linear gradient for a semi-transparent overlay */
+    /*background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 100%, rgba(0, 0, 0, 0.5) 100%), url(Contact_background.jpg);
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+}*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: url("Contact_background.jpg") no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    max-width: 600px;
+    margin: 70px auto;
+    background-color: #f3e0b5;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+}
+
+h1 {
+    color: #371c03;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #020202;
+    margin: 5px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid #6e1e03;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color:  #371c03;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+  }
