@@ -15,6 +15,7 @@ if (!$conn) {
 $sql = "SELECT * FROM book";
 $result = mysqli_query($conn, $sql);*/
 // Retrieving data from the "book" table and joining with the "book_count" table
+
 $sql = "SELECT book.ISBN, book.Book_ID, book.Title, book_count.Now_available_qty
         FROM book
         JOIN book_count ON book.Title = book_count.Title";
