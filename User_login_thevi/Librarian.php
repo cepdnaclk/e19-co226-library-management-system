@@ -28,8 +28,10 @@
         <button class="logout-btn" onclick="location.href='../Form/Addpublisherconnect.php'">Add Publisher +</button><br/><br/>
         <button class="logout-btn" onclick="location.href='../Form/Borrowbooksconnect.php'">Borrow book +</button><br/><br/>
         <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Return book +</button><br/><br/>
-        <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Show books</button><br/><br/>
-        <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Show borrow details</button><br/><br/>
+        <button class="logout-btn" onclick="location.href='ShowBookDetails.php'">Show books -></button><br/><br/>
+        <button class="logout-btn" onclick="location.href='Memberdetails.php'">Show member details -></button><br/><br/>
+
+        <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Show borrow details -></button><br/><br/>
 
         <button class="logout-btn"><a href="Login.php">Logout</a></button>
         
