@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>Librarian Page </title>
-    <link rel="stylesheet" href="librarian.css">
+    <link rel="stylesheet" href="librarianstyle.css">
 </head>
 <body>
     <div class="Lib-page">
@@ -28,6 +28,8 @@
         <button class="logout-btn" onclick="location.href='../Form/Addpublisherconnect.php'">Add Publisher +</button><br/><br/>
         <button class="logout-btn" onclick="location.href='../Form/Borrowbooksconnect.php'">Borrow book +</button><br/><br/>
         <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Return book +</button><br/><br/>
+        <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Show books</button><br/><br/>
+        <button class="logout-btn" onclick="location.href='../Form/Returnbooksconnect.php'">Show borrow details</button><br/><br/>
 
         <button class="logout-btn"><a href="Login.php">Logout</a></button>
         
