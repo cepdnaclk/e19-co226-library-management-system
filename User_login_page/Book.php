@@ -69,7 +69,7 @@ mysqli_close($conn);
         </table>
         <br>
         <a href = "Login.php" class=" button">Back HOME</a>
-        <a href = "Logout.php" class = "button">Log Out</a>
+        <!--a href = "Logout.php" class = "button">Log Out</a-->
     </div>
     
 </body>
