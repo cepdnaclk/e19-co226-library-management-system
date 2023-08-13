@@ -1,5 +1,23 @@
 <?php
-$error = ""; // Initialize the $error variable
+
+// Initialize the $error variable
+$error = ""; 
+
+
+// Check if there is an error message stored in the session
+if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION['error_message'])) {
+    // Assign the error message from the session to the $error variable
+    $error = $_SESSION['error_message'];
+    // Clear the error message from the session so it won't be displayed again on subsequent attempts
+    unset($_SESSION['error_message']);
+}
+// Check if there is an error message passed as a URL parameter
+
+if (isset($_GET['error'])) {
+    // Retrieve the error message from the URL parameter
+    /*$error = $_GET['error'];*/
+    $error = urldecode($_GET['error']);
+}
 ?>
 
 
