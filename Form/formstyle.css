@@ -1,0 +1,85 @@
+form {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #b2d8d8, #ffffff, #db9595);
+  background-position: center;
+  background-size: cover;
+}
+
+/* Style form labels */
+form label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+/* Style form inputs and textareas */
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form textarea {
+  width: 100%;
+  padding: 10px ;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+/* Style form submit button */
+form input[type="submit"] {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+/* Style form submit button on hover */
+form input[type="submit"]:hover {
+  background-color: #45a049;
+}
+form input[type="Reset"] {
+    background-color: #525553;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  /* Style form submit button on hover */
+  form input[type="submit"]:hover {
+    background-color: #525553;
+  }
+
+  /* Style the back button */
+button {
+    background-color: #d71920;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  /* Style the back button on hover */
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: #181515; /* Set your desired text color */
+    text-align: center; /* Center align the heading if needed */
+    margin-top: 20px; /* Add some top margin to separate from other elements */
+    margin-bottom: 30px; /* Add some bottom margin for spacing */
+  }
+  
+ 
+  
