@@ -1,0 +1,26 @@
+{
+    "team": [
+        {
+            "name": "Danujan",
+            "email": "e19060@eng.pdn.ac.lk",
+            "eNumber": "E/19/060"
+        },
+        {
+            "name": "Delini",
+            "email": "e19069@eng.pdn.ac.lk",
+            "eNumber": "E/19/069"
+        },
+        {
+            "name": "Thevambikai",
+            "email": "e19494@eng.pdn.ac.lk",
+            "eNumber": "E/19/494"
+        }
+    ],
+    "supervisors": [
+        {
+            "name": "Dr. Manjula Sandirigama",
+            "email": "manjula.sandirigama@eng.pdn.ac.lk"
+        }
+    ],
+    "tags": ["CO227"]
+}
